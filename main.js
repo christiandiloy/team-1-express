@@ -83,7 +83,7 @@ app.post("/api/v2/login", function (request, response) {
     })
     .catch((error) => {
       console.log("error: ", error);
-      // response.send(retVal)
+      response.send(retVal);
     });
 });
 
@@ -113,8 +113,7 @@ app.post("/api/v2/register", function (request, response) {
         .then((result) => {
           retVal.success = true;
           delete result.password;
-          retVal.userData = null;
-          // retVal.userData = result; // for auto login after registration
+          retVal.userData = result; // for auto login after registration
         })
         .finally(() => {
           response.send(retVal);

@@ -7,6 +7,7 @@ const fs = require("fs"); // use file system of windows or other OS to access lo
 const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
+const bcrypt = require("bcrypt");
 const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
   host: "20.211.37.87",
   dialect: "mysql",
@@ -99,9 +100,10 @@ app.post("/api/v2/register", function (request, response) {
       retVal.message = "username is already taken";
       response.send(retVal);
     } else {
+      const hashedPassword = bcrypt.hashSync(request.body.password, 8);
       User.create({
         username: request.body.username,
-        password: request.body.password,
+        password: hashedPassword,
         full_name: request.body.fullName,
         email: request.body.email,
       })

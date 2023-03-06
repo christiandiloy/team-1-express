@@ -146,7 +146,9 @@ app.get('/store/item-page/:itemId', async (req, res) => {
             item_id: item.item_id,
             item_name: item.item_name,
             item_price: item.item_price,
-            item_desc: item.item_desc
+            item_desc: item.item_desc,
+            item_category: item.item_category,
+            item_series: item.item_series
             };
             res.json(itemData);
         } else {

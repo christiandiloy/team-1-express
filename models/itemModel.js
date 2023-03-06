@@ -22,6 +22,14 @@ const Item = sequelize.define('Item', {
   item_desc: {
     type: DataTypes.TEXT,
     allowNull: false
+  },
+  item_category: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  item_series: {
+    type: DataTypes.TEXT,
+    allowNull: false
   }
 }, {
   tableName: 'item_page',

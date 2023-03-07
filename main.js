@@ -7,6 +7,8 @@ const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
+const itemModel = require('./models/itemModel');
+const path = require('path');
 const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
   host: "20.211.37.87",
   dialect: "mysql",
@@ -42,6 +44,8 @@ app.use(
   })
 );
 app.use(bodyParser.json()); // initialize body parser plugin on express
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 let defaultData = [];
 app.post("/api/v2/login", function (request, response) {
   let retVal = { success: false };
@@ -174,6 +178,30 @@ app.get("/keyword", function (req, res) {
     }
   );
 });
+
+app.get('/store/item-page/:itemId', async (req, res) => {
+  try {
+      const itemId = req.params.itemId;
+      const item = await itemModel.findByPk(itemId);
+      if (item) {
+          const itemData = {
+          item_id: item.item_id,
+          item_name: item.item_name,
+          item_price: item.item_price,
+          item_desc: item.item_desc,
+          item_category: item.item_category,
+          item_series: item.item_series
+          };
+          res.json(itemData);
+      } else {
+          res.status(404).json({ error: 'Item not found' });
+      }
+      } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: 'Server error' });
+  }
+});
+
 const runApp = async () => {
   try {
     await sequelize.authenticate();

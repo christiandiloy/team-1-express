@@ -671,6 +671,134 @@
       "star": "11",
       "text": "665.30",
       "price": "5378.12"
+    },
+    {
+      "id": 75,
+      "category": "BoxModKits",
+      "url": "/assets/images/box-mod-kits/GEEKVAPE-L200.jpg",
+      "title": "Geekvape L200",
+      "star": "234",
+      "text": "4691.54"
+    },
+    {
+      "id": 76,
+      "category": "BoxModKits",
+      "url": "/assets/images/box-mod-kits/AegisX-ZSub.jpg",
+      "title": "Geekvape Aegis X",
+      "star": "129",
+      "text": "5338.84"
+    },
+    {
+      "id": 77,
+      "category": "BoxModKits",
+      "url": "/assets/images/box-mod-kits/GeekvapeT200Kit.jpg",
+      "title": "Geekvape T200",
+      "star": "66",
+      "text": "5687.38"
+    },
+    {
+      "id": 78,
+      "category": "BoxModKits",
+      "url": "/assets/images/box-mod-kits/GEEKVAPE-MAX100.jpg",
+      "title": "Geekvape Max100",
+      "star": "77",
+      "text": "4507.86"
+    },
+    {
+      "id": 79,
+      "category": "BoxModKits",
+      "url": "/assets/images/box-mod-kits/AegisSoloKit.jpg",
+      "title": "Geekvape S100",
+      "star": "28",
+      "text": "4575.36"
+    },
+    {
+      "id": 80,
+      "category": "BoxModKits",
+      "url": "/assets/images/box-mod-kits/GEEKVAPE-E100.jpg",
+      "title": "Geekvape E100",
+      "star": "28",
+      "text": "2959.36"
+    },
+    {
+      "id": 81,
+      "category": "BoxModKits",
+      "url": "/assets/images/box-mod-kits/Legend-2-Classic-T200.jpg",
+      "title": "Geekvape L200 Classic",
+      "star": "49",
+      "text": "4929.36"
+    },
+    {
+      "id": 82,
+      "category": "BoxModKits",
+      "url": "/assets/images/box-mod-kits/GeekvapeAegisMini2Kit.jpg",
+      "title": "Geekvape M100 Kit",
+      "star": "45",
+      "text": "4912.84"
+    },
+    {
+      "id": 83,
+      "category": "PodKits",
+      "url": "/assets/images/pod-kits/Black.jpg",
+      "title": "Geekvape Obelisk U Pod",
+      "star": "6",
+      "text": "1105.94"
+    },
+    {
+      "id": 84,
+      "category": "PodKits",
+      "url": "/assets/images/pod-kits/BlackBlue.jpg",
+      "title": "Geekvape Z100C DNA Pod",
+      "star": "14",
+      "text": "9248.63"
+    },
+    {
+      "id": 85,
+      "category": "PodKits",
+      "url": "/assets/images/pod-kits/BlackRed.jpg",
+      "title": "Geekvape B100 Kit",
+      "star": "8",
+      "text": "2793.63"
+    },
+    {
+      "id": 86,
+      "category": "PodKits",
+      "url": "/assets/images/pod-kits/GeekvapeSonderUKit.jpg",
+      "title": "Geekvape Sonder U Pod",
+      "star": "44",
+      "text": "663.90"
+    },
+    {
+      "id": 87,
+      "category": "PodKits",
+      "url": "/assets/images/pod-kits/Gunmetal.jpg",
+      "title": "Geekvape AU Pod kit",
+      "star": "12",
+      "text": "1466.90"
+    },
+    {
+      "id": 88,
+      "category": "PodKits",
+      "url": "/assets/images/pod-kits/H45_RTE.jpg",
+      "title": "Geekvape H45 Pod",
+      "star": "67",
+      "text": "2433.90"
+    },
+    {
+      "id": 89,
+      "category": "PodKits",
+      "url": "/assets/images/pod-kits/wenax.jpg",
+      "title": "Geekvape Wenax U Pod",
+      "star": "7",
+      "text": "1266.90"
+    },
+    {
+      "id": 90,
+      "category": "PodKits",
+      "url": "/assets/images/pod-kits/wenax-slim.jpg",
+      "title": "Geekvape Wenax M1 Pod Kit",
+      "star": "38",
+      "text": "939.90"
     }
   ]
 }

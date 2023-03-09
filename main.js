@@ -47,8 +47,8 @@ app.use(
 );
 
 app.use(bodyParser.json()); // initialize body parser plugin on express
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 let defaultData = [];
 
 app.post("/api/v2/login", function (request, response) {
@@ -183,26 +183,26 @@ app.get("/keyword", function (req, res) {
   );
 });
 
-app.get('/store/item-page/:itemId', async (req, res) => {
+app.get("/store/item-page/:itemId", async (req, res) => {
   try {
-      const itemId = req.params.itemId;
-      const item = await itemModel.findByPk(itemId);
-      if (item) {
-          const itemData = {
-          item_id: item.item_id,
-          item_name: item.item_name,
-          item_price: item.item_price,
-          item_desc: item.item_desc,
-          item_category: item.item_category,
-          item_series: item.item_series
-          };
-          res.json(itemData);
-      } else {
-          res.status(404).json({ error: 'Item not found' });
-      }
-      } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: 'Server error' });
+    const itemId = req.params.itemId;
+    const item = await itemModel.findByPk(itemId);
+    if (item) {
+      const itemData = {
+        item_id: item.item_id,
+        item_name: item.item_name,
+        item_price: item.item_price,
+        item_desc: item.item_desc,
+        item_category: item.item_category,
+        item_series: item.item_series,
+      };
+      res.json(itemData);
+    } else {
+      res.status(404).json({ error: "Item not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 

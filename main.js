@@ -3,12 +3,14 @@ const cors = require("cors"); // this allows us to access our server on a differ
 const bodyParser = require("body-parser"); // this allows us to ready request data JSON object
 const app = express(); // initialize express server into a variable
 const fs = require("fs"); // use file system of windows or other OS to access local files
+const nodemailer = require("nodemailer"); //send email to users
 const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const itemModel = require('./models/itemModel');
+const {itemModel, subscriberModel} = require('./models/itemModel');
 const path = require('path');
+const { EMAIL, PASSWORD } = require('./env.js');
 const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
   host: "20.211.37.87",
   dialect: "mysql",
@@ -43,10 +45,12 @@ app.use(
     extended: true,
   })
 );
+
 app.use(bodyParser.json()); // initialize body parser plugin on express
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 let defaultData = [];
+
 app.post("/api/v2/login", function (request, response) {
   let retVal = { success: false };
   console.log("req: ", request.body);
@@ -201,6 +205,30 @@ app.get('/store/item-page/:itemId', async (req, res) => {
       res.status(500).json({ error: 'Server error' });
   }
 });
+
+app.post('/subscribe', async (req, res) => {
+
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: EMAIL,
+      pass: PASSWORD
+    },
+  });
+
+  const msg = {
+    from: `"Gon's Dispo Vape Shop" <${EMAIL}>`,
+    to: `${req.body.email}, ${req.body.email}`,
+    subject: "Subscribed",
+    text: "Hello Subscriber!",
+  }
+
+  let info = await transporter.sendMail(msg);
+
+  console.log("Message sent: %s", info.messageId);
+  console.log("Email has been sent to:", req.body.email);
+})
+
 
 const runApp = async () => {
   try {

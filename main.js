@@ -3,12 +3,16 @@ const cors = require("cors"); // this allows us to access our server on a differ
 const bodyParser = require("body-parser"); // this allows us to ready request data JSON object
 const app = express(); // initialize express server into a variable
 const fs = require("fs"); // use file system of windows or other OS to access local files
+const nodemailer = require("nodemailer"); //send email to users
 const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const itemModel = require('./models/itemModel');
+const {itemModel, subscriberModel} = require('./models/itemModel');
+const Image = require('./models/image');
 const path = require('path');
+const path = require('path');
+const { EMAIL, PASSWORD } = require('./env.js');
 const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
   host: "20.211.37.87",
   dialect: "mysql",
@@ -43,10 +47,12 @@ app.use(
     extended: true,
   })
 );
+app.use(express.static('uploads'));
 app.use(bodyParser.json()); // initialize body parser plugin on express
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 let defaultData = [];
+
 app.post("/api/v2/login", function (request, response) {
   let retVal = { success: false };
   console.log("req: ", request.body);
@@ -179,26 +185,107 @@ app.get("/keyword", function (req, res) {
   );
 });
 
-app.get('/store/item-page/:itemId', async (req, res) => {
+app.get("/store/item-page/:itemId", async (req, res) => {
   try {
-      const itemId = req.params.itemId;
-      const item = await itemModel.findByPk(itemId);
-      if (item) {
-          const itemData = {
-          item_id: item.item_id,
-          item_name: item.item_name,
-          item_price: item.item_price,
-          item_desc: item.item_desc,
-          item_category: item.item_category,
-          item_series: item.item_series
-          };
-          res.json(itemData);
-      } else {
-          res.status(404).json({ error: 'Item not found' });
+    const itemId = req.params.itemId;
+    const item = await itemModel.findByPk(itemId);
+    if (item) {
+      const itemData = {
+        item_id: item.item_id,
+        item_name: item.item_name,
+        item_price: item.item_price,
+        item_desc: item.item_desc,
+        item_category: item.item_category,
+        item_series: item.item_series,
+      };
+      res.json(itemData);
+    } else {
+      res.status(404).json({ error: "Item not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.post('/subscribe', async (req, res) => {
+
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: EMAIL,
+      pass: PASSWORD
+    },
+  });
+
+  const msg = {
+    from: `"Gon's Dispo Vape Shop" <${EMAIL}>`,
+    to: `${req.body.email}, ${req.body.email}`,
+    subject: "Subscribed",
+    text: "Hello Subscriber!",
+  }
+
+  let info = await transporter.sendMail(msg);
+
+  console.log("Message sent: %s", info.messageId);
+  console.log("Email has been sent to:", req.body.email);
+})
+
+console.log('path:', path);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+
+const upload = multer({ storage: storage });
+
+app.post('/items/:itemId/images', upload.single('image'), async (req, res) => {
+  try {
+    const itemId = req.params.itemId;
+
+    console.log(req.file)
+    const filePath = req.file.path;
+    const fileName = req.file.filename;
+    const fileType = req.file.mimetype.split('/')[1];
+    const fileNameWithExtension = `${req.file.filename}.${fileType}`;
+
+    if (!filePath) {
+      throw new Error('File path is empty');
+    }
+
+    const newFilePath = `${filePath}.${fileType}`;
+    fs.renameSync(filePath, newFilePath);
+
+    const image = await Image.update({
+      item_main_image: fileNameWithExtension,
+    }, {
+      where: {
+        item_id: itemId
       }
-      } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: 'Server error' });
+    });
+
+    console.log('image:', image);
+
+    res.json({ success: true, image, fileType });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to save image' });
+  }
+});
+
+app.use(function (err, req, res, next) {
+  if (err instanceof multer.MulterError) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to upload file' });
+  } else if (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Unknown error occurred' });
+  } else {
+    next();
   }
 });
 

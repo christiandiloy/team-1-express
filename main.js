@@ -8,7 +8,8 @@ const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const {itemModel, subscriberModel} = require('./models/itemModel');
+const subscriberModel = require('./models/itemModel');
+const itemModel = require('./models/itemModel');
 const Image = require('./models/image');
 const multer  = require('multer');
 const path = require('path');
@@ -197,6 +198,7 @@ app.get("/store/item-page/:itemId", async (req, res) => {
         item_desc: item.item_desc,
         item_category: item.item_category,
         item_series: item.item_series,
+        item_main_image: item.item_main_image
       };
       res.json(itemData);
     } else {

@@ -8,12 +8,12 @@ const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const subscriberModel = require('./models/subscriberModel');
-const itemModel = require('./models/itemModel');
-const Image = require('./models/image');
-const multer  = require('multer');
-const path = require('path');
-const { EMAIL, PASSWORD } = require('./env.js');
+const subscriberModel = require("./models/subscriberModel");
+const itemModel = require("./models/itemModel");
+const Image = require("./models/image");
+const multer = require("multer");
+const path = require("path");
+const { EMAIL, PASSWORD } = require("./env.js");
 const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
   host: "20.211.37.87",
   dialect: "mysql",
@@ -48,7 +48,7 @@ app.use(
     extended: true,
   })
 );
-app.use(express.static('uploads'));
+app.use(express.static("uploads"));
 app.use(bodyParser.json()); // initialize body parser plugin on express
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -71,7 +71,12 @@ app.post("/api/v2/login", function (request, response) {
       }
     })
     .then((result) => {
-      if (result.password === request.body.password) {
+      const checkedPassword = bcrypt.compareSync(
+        request.body.password,
+        result.password
+      );
+
+      if (checkedPassword) {
         retVal.success = true;
         delete result.password;
         retVal.userData = result;
@@ -87,7 +92,6 @@ app.post("/api/v2/login", function (request, response) {
     })
     .catch((error) => {
       console.log("error: ", error);
-      response.send(retVal);
     });
 });
 
@@ -158,6 +162,39 @@ app.post("/api/v2/register", checkDuplicate, function (request, response) {
     }
   });
 });
+
+app.put("/api/v2/users/:userId/password", function (req, res) {
+  const userId = req.params.userId;
+  const newPassword = req.body.newPassword;
+  User.findByPk(userId)
+    .then((user) => {
+      if (user) {
+        const hashedPassword = bcrypt.hashSync(newPassword, 8);
+        user
+          .update({ password: hashedPassword })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Password updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user password:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user password",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "User not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding user:", error);
+      res.send({ success: false, message: "Failed to find user" });
+    });
+});
+
 app.get("/getProduct", function (req, res) {
   fs.readFile(
     __dirname + "/" + "all-products.json",
@@ -198,7 +235,7 @@ app.get("/store/item-page/:itemId", async (req, res) => {
         item_desc: item.item_desc,
         item_category: item.item_category,
         item_series: item.item_series,
-        item_main_image: item.item_main_image
+        item_main_image: item.item_main_image,
       };
       res.json(itemData);
     } else {
@@ -210,13 +247,12 @@ app.get("/store/item-page/:itemId", async (req, res) => {
   }
 });
 
-app.post('/subscribe', async (req, res) => {
-
+app.post("/subscribe", async (req, res) => {
   let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: EMAIL,
-      pass: PASSWORD
+      pass: PASSWORD,
     },
   });
 
@@ -225,67 +261,70 @@ app.post('/subscribe', async (req, res) => {
     to: `${req.body.email}, ${req.body.email}`,
     subject: "Subscribed",
     text: "Hello Subscriber!",
-  }
+  };
 
   let info = await transporter.sendMail(msg);
 
   console.log("Message sent: %s", info.messageId);
   console.log("Email has been sent to:", req.body.email);
-})
+});
 
-console.log('path:', path);
+console.log("path:", path);
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
+    cb(null, file.fieldname + "-" + Date.now());
+  },
+});
 
 const upload = multer({ storage: storage });
 
-app.post('/items/:itemId/images', upload.single('image'), async (req, res) => {
+app.post("/items/:itemId/images", upload.single("image"), async (req, res) => {
   try {
     const itemId = req.params.itemId;
 
-    console.log(req.file)
+    console.log(req.file);
     const filePath = req.file.path;
     const fileName = req.file.filename;
-    const fileType = req.file.mimetype.split('/')[1];
+    const fileType = req.file.mimetype.split("/")[1];
     const fileNameWithExtension = `${req.file.filename}.${fileType}`;
 
     if (!filePath) {
-      throw new Error('File path is empty');
+      throw new Error("File path is empty");
     }
 
     const newFilePath = `${filePath}.${fileType}`;
     fs.renameSync(filePath, newFilePath);
 
-    const image = await Image.update({
-      item_main_image: fileNameWithExtension,
-    }, {
-      where: {
-        item_id: itemId
+    const image = await Image.update(
+      {
+        item_main_image: fileNameWithExtension,
+      },
+      {
+        where: {
+          item_id: itemId,
+        },
       }
-    });
+    );
 
-    console.log('image:', image);
+    console.log("image:", image);
 
     res.json({ success: true, image, fileType });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to save image' });
+    res.status(500).json({ error: "Failed to save image" });
   }
 });
 
 app.use(function (err, req, res, next) {
   if (err instanceof multer.MulterError) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to upload file' });
+    res.status(500).json({ error: "Failed to upload file" });
   } else if (err) {
     console.error(err);
-    res.status(500).json({ error: 'Unknown error occurred' });
+    res.status(500).json({ error: "Unknown error occurred" });
   } else {
     next();
   }

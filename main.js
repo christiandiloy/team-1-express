@@ -211,11 +211,11 @@ app.put("/api/v2/users/:userId/profile", function (req, res) {
       if (user) {
         user
           .update({
-            full_name: request.body.full_name,
+            full_name: request.body.fullName,
             email: request.body.email,
-            contact_no: request.body.contact_no,
+            contact_no: request.body.contactNo,
             gender: request.body.gender,
-            date_of_birth: request.body.date_of_birth,
+            date_of_birth: request.body.dateOfBirth,
           })
           .then(() => {
             res.send({

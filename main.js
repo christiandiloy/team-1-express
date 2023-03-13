@@ -204,32 +204,22 @@ app.put("/api/v2/users/:userId/password", function (req, res) {
     });
 });
 
-app.put("/api/v2/users/:userId/profile", function (req, res) {
+app.get("/api/v2/users/:userId/profile", function (req, res) {
   const userId = req.params.userId;
   User.findByPk(userId)
     .then((user) => {
       if (user) {
-        user
-          .update({
-            full_name: request.body.fullName,
-            email: request.body.email,
-            contact_no: request.body.contactNo,
-            gender: request.body.gender,
-            date_of_birth: request.body.dateOfBirth,
-          })
-          .then(() => {
-            res.send({
-              success: true,
-              message: "Profile updated successfully",
-            });
-          })
-          .catch((error) => {
-            console.log("Error updating user Profile:", error);
-            res.send({
-              success: false,
-              message: "Failed to update user Profile",
-            });
-          });
+        res.send({
+          success: true,
+          data: {
+            username: user.username,
+            full_name: user.full_name,
+            email: user.email,
+            contact_no: user.contact_no,
+            gender: user.gender,
+            date_of_birth: user.date_of_birth,
+          },
+        });
       } else {
         res.send({ success: false, message: "User not found" });
       }

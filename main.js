@@ -71,7 +71,12 @@ app.post("/api/v2/login", function (request, response) {
       }
     })
     .then((result) => {
-      if (result.password === request.body.password) {
+      const checkedPassword = bcrypt.compareSync(
+        request.body.password,
+        result.password
+      );
+
+      if (checkedPassword) {
         retVal.success = true;
         delete result.password;
         retVal.userData = result;
@@ -87,7 +92,6 @@ app.post("/api/v2/login", function (request, response) {
     })
     .catch((error) => {
       console.log("error: ", error);
-      response.send(retVal);
     });
 });
 

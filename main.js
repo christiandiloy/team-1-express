@@ -8,7 +8,10 @@ const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const {itemModel, subscriberModel} = require('./models/itemModel');
+const subscriberModel = require('./models/subscriberModel');
+const itemModel = require('./models/itemModel');
+const Image = require('./models/image');
+const multer  = require('multer');
 const path = require('path');
 const { EMAIL, PASSWORD } = require('./env.js');
 const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
@@ -45,7 +48,7 @@ app.use(
     extended: true,
   })
 );
-
+app.use(express.static('uploads'));
 app.use(bodyParser.json()); // initialize body parser plugin on express
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -195,6 +198,7 @@ app.get("/store/item-page/:itemId", async (req, res) => {
         item_desc: item.item_desc,
         item_category: item.item_category,
         item_series: item.item_series,
+        item_main_image: item.item_main_image
       };
       res.json(itemData);
     } else {
@@ -229,6 +233,63 @@ app.post('/subscribe', async (req, res) => {
   console.log("Email has been sent to:", req.body.email);
 })
 
+console.log('path:', path);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+
+const upload = multer({ storage: storage });
+
+app.post('/items/:itemId/images', upload.single('image'), async (req, res) => {
+  try {
+    const itemId = req.params.itemId;
+
+    console.log(req.file)
+    const filePath = req.file.path;
+    const fileName = req.file.filename;
+    const fileType = req.file.mimetype.split('/')[1];
+    const fileNameWithExtension = `${req.file.filename}.${fileType}`;
+
+    if (!filePath) {
+      throw new Error('File path is empty');
+    }
+
+    const newFilePath = `${filePath}.${fileType}`;
+    fs.renameSync(filePath, newFilePath);
+
+    const image = await Image.update({
+      item_main_image: fileNameWithExtension,
+    }, {
+      where: {
+        item_id: itemId
+      }
+    });
+
+    console.log('image:', image);
+
+    res.json({ success: true, image, fileType });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to save image' });
+  }
+});
+
+app.use(function (err, req, res, next) {
+  if (err instanceof multer.MulterError) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to upload file' });
+  } else if (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Unknown error occurred' });
+  } else {
+    next();
+  }
+});
 
 const runApp = async () => {
   try {

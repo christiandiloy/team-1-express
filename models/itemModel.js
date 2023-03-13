@@ -30,6 +30,10 @@ const Item = sequelize.define('Item', {
   item_series: {
     type: DataTypes.TEXT,
     allowNull: false
+  },
+  item_main_image: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 }, {
   tableName: 'item_page',

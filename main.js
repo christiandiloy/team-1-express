@@ -159,46 +159,35 @@ app.post("/api/v2/register", checkDuplicate, function (request, response) {
   });
 });
 
-app.post("/api/v2/updatePassword", function (request, response) {
-  let retVal = { success: false };
-  console.log("req: ", request.body);
-  User.findOne({
-    where: {
-      username: request.body.username,
-    },
-  })
-    .then((result) => {
-      if (result) {
-        const isMatch = bcrypt.compareSync(
-          request.body.oldPassword,
-          result.password
-        );
-        if (isMatch) {
-          const hashedPassword = bcrypt.hashSync(request.body.newPassword, 8);
-          result.password = hashedPassword;
-          return result.save();
-        } else {
-          retVal.success = false;
-          retVal.message = "Incorrect old password!";
-          throw new Error("incorrect old password");
-        }
+app.put("/api/v2/users/:userId/password", function (req, res) {
+  const userId = req.params.userId;
+  const newPassword = req.body.newPassword;
+  User.findByPk(userId)
+    .then((user) => {
+      if (user) {
+        const hashedPassword = bcrypt.hashSync(newPassword, 8);
+        user
+          .update({ password: hashedPassword })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Password updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user password:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user password",
+            });
+          });
       } else {
-        retVal.success = false;
-        retVal.message = "User does not exist!";
-        throw new Error("user does not exist");
+        res.send({ success: false, message: "User not found" });
       }
     })
-    .then((result) => {
-      retVal.success = true;
-      delete result.password;
-      retVal.userData = result;
-    })
-    .finally(() => {
-      response.send(retVal);
-    })
     .catch((error) => {
-      console.log("error: ", error);
-      response.send(retVal);
+      console.log("Error finding user:", error);
+      res.send({ success: false, message: "Failed to find user" });
     });
 });
 

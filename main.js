@@ -33,6 +33,15 @@ const User = sequelize.define(
     email: {
       type: Sequelize.STRING,
     },
+    contact_no: {
+      type: Sequelize.STRING,
+    },
+    gender: {
+      type: Sequelize.STRING,
+    },
+    date_of_birth: {
+      type: Sequelize.STRING,
+    },
   },
   {
     tableName: "user",
@@ -183,6 +192,42 @@ app.put("/api/v2/users/:userId/password", function (req, res) {
             res.send({
               success: false,
               message: "Failed to update user password",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "User not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding user:", error);
+      res.send({ success: false, message: "Failed to find user" });
+    });
+});
+
+app.put("/api/v2/users/:userId/profile", function (req, res) {
+  const userId = req.params.userId;
+  User.findByPk(userId)
+    .then((user) => {
+      if (user) {
+        user
+          .update({
+            full_name: request.body.full_name,
+            email: request.body.email,
+            contact_no: request.body.contact_no,
+            gender: request.body.gender,
+            date_of_birth: request.body.date_of_birth,
+          })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Profile updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user Profile:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user Profile",
             });
           });
       } else {

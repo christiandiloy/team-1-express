@@ -33,6 +33,15 @@ const User = sequelize.define(
     email: {
       type: Sequelize.STRING,
     },
+    contact_no: {
+      type: Sequelize.STRING,
+    },
+    gender: {
+      type: Sequelize.STRING,
+    },
+    date_of_birth: {
+      type: Sequelize.STRING,
+    },
   },
   {
     tableName: "user",
@@ -183,6 +192,73 @@ app.put("/api/v2/users/:userId/password", function (req, res) {
             res.send({
               success: false,
               message: "Failed to update user password",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "User not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding user:", error);
+      res.send({ success: false, message: "Failed to find user" });
+    });
+});
+
+app.get("/api/v2/users/:userId/profile", function (req, res) {
+  const userId = req.params.userId;
+  User.findByPk(userId)
+    .then((user) => {
+      if (user) {
+        res.send({
+          success: true,
+          data: {
+            username: user.username,
+            full_name: user.full_name,
+            email: user.email,
+            contact_no: user.contact_no,
+            gender: user.gender,
+            date_of_birth: user.date_of_birth,
+          },
+        });
+      } else {
+        res.send({ success: false, message: "User not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding user:", error);
+      res.send({ success: false, message: "Failed to find user" });
+    });
+});
+
+app.put("/api/v2/users/:userId/profile", function (req, res) {
+  const userId = req.params.userId;
+  const full_name = req.body.fullName;
+  const email = req.body.email;
+  const contactNo = req.body.contactNo;
+  const gender = req.body.gender;
+  const dateOfBirth = req.body.dateOfBirth;
+  User.findByPk(userId)
+    .then((user) => {
+      if (user) {
+        user
+          .update({
+            full_name: full_name,
+            email: email,
+            contact_no: contactNo,
+            gender: gender,
+            date_of_birth: dateOfBirth,
+          })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Profile updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user profile:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user profile.",
             });
           });
       } else {

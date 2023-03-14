@@ -230,6 +230,47 @@ app.get("/api/v2/users/:userId/profile", function (req, res) {
     });
 });
 
+app.put("/api/v2/users/:userId/profile", function (req, res) {
+  const userId = req.params.userId;
+  const full_name = req.body.fullName;
+  const email = req.body.email;
+  const contactNo = req.body.contactNo;
+  const gender = req.body.gender;
+  const dateOfBirth = req.body.dateOfBirth;
+  User.findByPk(userId)
+    .then((user) => {
+      if (user) {
+        user
+          .update({
+            full_name: full_name,
+            email: email,
+            contact_no: contactNo,
+            gender: gender,
+            date_of_birth: dateOfBirth,
+          })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Profile updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user profile:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user profile.",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "User not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding user:", error);
+      res.send({ success: false, message: "Failed to find user" });
+    });
+});
+
 app.get("/getProduct", function (req, res) {
   fs.readFile(
     __dirname + "/" + "all-products.json",

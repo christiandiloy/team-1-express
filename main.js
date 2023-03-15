@@ -48,6 +48,34 @@ const User = sequelize.define(
     timestamps: false,
   }
 );
+
+const Address = sequelize.define(
+  "address",
+  {
+    userID: {
+      type: Sequelize.STRING,
+    },
+    full_name: {
+      type: Sequelize.STRING,
+    },
+    contact_no: {
+      type: Sequelize.STRING,
+    },
+    place: {
+      type: Sequelize.STRING,
+    },
+    postal_code: {
+      type: Sequelize.STRING,
+    },
+    house_no: {
+      type: Sequelize.STRING,
+    },
+  },
+  {
+    tableName: "address",
+    timestamps: false,
+  }
+);
 let rawData = fs.readFileSync("data.json"); // read file from given path
 let parsedData = JSON.parse(rawData); // parse rawData (which is a string into a JSON object)
 app.use(cors()); // initialize cors plugin on express
@@ -172,6 +200,32 @@ app.post("/api/v2/register", checkDuplicate, function (request, response) {
   });
 });
 
+app.post("/api/v2/address", function (request, response) {
+  let retVal = { success: false };
+  console.log("req: ", request.body);
+  Address.create({
+    userID: request.body.userID,
+    full_name: request.body.fullName,
+    contact_no: request.body.contactNo,
+    place: request.body.place,
+    postal_code: request.body.postalCode,
+    house_no: request.body.houseNo,
+  })
+    .then((result) => {
+      return result.dataValues;
+    })
+    .then((result) => {
+      retVal.success = true;
+      retVal.userData = result;
+    })
+    .finally(() => {
+      response.send(retVal);
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+    });
+});
+
 app.put("/api/v2/users/:userId/password", function (req, res) {
   const userId = req.params.userId;
   const newPassword = req.body.newPassword;
@@ -281,6 +335,7 @@ app.get("/getProduct", function (req, res) {
     }
   );
 });
+
 app.get("/keyword", function (req, res) {
   fs.readFile(
     __dirname + "/" + "all-products.json",

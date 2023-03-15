@@ -283,7 +283,7 @@ app.get("/getProduct", function (req, res) {
 });
 app.get("/keyword", function (req, res) {
   fs.readFile(
-    __dirname + "/" + "all-products.json",
+    __dirname + "/" + "all-products.js",
     "utf8",
     function (err, data) {
       data = JSON.parse(data);

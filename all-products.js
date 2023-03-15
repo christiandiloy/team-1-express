@@ -1,5 +1,4 @@
-{
-  "products": [
+const productArray = [
     {
       "id": 1,
       "category": "Aegis",
@@ -85,7 +84,7 @@
       "id": 10,
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-x-zeus-sub-ohm-list.png",
-      "title": "Aegis X Geekvape Z Sub-ohm Kit",
+      "title": "Aegis X Geekvape Z Kit",
       "text": "The Best Mod Meets the Best Tank",
       "star": "49",
       "price": "5378.12"
@@ -678,7 +677,8 @@
       "url": "/assets/images/box-mod-kits/GEEKVAPE-L200.jpg",
       "title": "Geekvape L200",
       "star": "234",
-      "text": "4691.54"
+      "text": "4691.54",
+      "price": "1234.56"
     },
     {
       "id": 76,
@@ -686,7 +686,8 @@
       "url": "/assets/images/box-mod-kits/AegisX-ZSub.jpg",
       "title": "Geekvape Aegis X",
       "star": "129",
-      "text": "5338.84"
+      "text": "5338.84",
+      "price": "1234.56"
     },
     {
       "id": 77,
@@ -694,7 +695,8 @@
       "url": "/assets/images/box-mod-kits/GeekvapeT200Kit.jpg",
       "title": "Geekvape T200",
       "star": "66",
-      "text": "5687.38"
+      "text": "5687.38",
+      "price": "1234.56"
     },
     {
       "id": 78,
@@ -702,7 +704,8 @@
       "url": "/assets/images/box-mod-kits/GEEKVAPE-MAX100.jpg",
       "title": "Geekvape Max100",
       "star": "77",
-      "text": "4507.86"
+      "text": "4507.86",
+      "price": "1234.56"
     },
     {
       "id": 79,
@@ -710,7 +713,8 @@
       "url": "/assets/images/box-mod-kits/AegisSoloKit.jpg",
       "title": "Geekvape S100",
       "star": "28",
-      "text": "4575.36"
+      "text": "4575.36",
+      "price": "1234.56"
     },
     {
       "id": 80,
@@ -718,7 +722,8 @@
       "url": "/assets/images/box-mod-kits/GEEKVAPE-E100.jpg",
       "title": "Geekvape E100",
       "star": "28",
-      "text": "2959.36"
+      "text": "2959.36",
+      "price": "1234.56"
     },
     {
       "id": 81,
@@ -726,7 +731,8 @@
       "url": "/assets/images/box-mod-kits/Legend-2-Classic-T200.jpg",
       "title": "Geekvape L200 Classic",
       "star": "49",
-      "text": "4929.36"
+      "text": "4929.36",
+      "price": "1234.56"
     },
     {
       "id": 82,
@@ -734,7 +740,8 @@
       "url": "/assets/images/box-mod-kits/GeekvapeAegisMini2Kit.jpg",
       "title": "Geekvape M100 Kit",
       "star": "45",
-      "text": "4912.84"
+      "text": "4912.84",
+      "price": "1234.56"
     },
     {
       "id": 83,
@@ -742,7 +749,8 @@
       "url": "/assets/images/pod-kits/Black.jpg",
       "title": "Geekvape Obelisk U Pod",
       "star": "6",
-      "text": "1105.94"
+      "text": "1105.94",
+      "price": "1234.56"
     },
     {
       "id": 84,
@@ -750,7 +758,8 @@
       "url": "/assets/images/pod-kits/BlackBlue.jpg",
       "title": "Geekvape Z100C DNA Pod",
       "star": "14",
-      "text": "9248.63"
+      "text": "9248.63",
+      "price": "1234.56"
     },
     {
       "id": 85,
@@ -758,7 +767,8 @@
       "url": "/assets/images/pod-kits/BlackRed.jpg",
       "title": "Geekvape B100 Kit",
       "star": "8",
-      "text": "2793.63"
+      "text": "2793.63",
+      "price": "1234.56"
     },
     {
       "id": 86,
@@ -766,7 +776,8 @@
       "url": "/assets/images/pod-kits/GeekvapeSonderUKit.jpg",
       "title": "Geekvape Sonder U Pod",
       "star": "44",
-      "text": "663.90"
+      "text": "663.90",
+      "price": "1234.56"
     },
     {
       "id": 87,
@@ -774,7 +785,8 @@
       "url": "/assets/images/pod-kits/Gunmetal.jpg",
       "title": "Geekvape AU Pod kit",
       "star": "12",
-      "text": "1466.90"
+      "text": "1466.90",
+      "price": "1234.56"
     },
     {
       "id": 88,
@@ -782,11 +794,13 @@
       "url": "/assets/images/pod-kits/H45_RTE.jpg",
       "title": "Geekvape H45 Pod",
       "star": "67",
-      "text": "2433.90"
+      "text": "2433.90",
+      "price": "1234.56"
     },
     {
       "id": 89,
       "category": "PodKits",
+      "price": "1234.56",
       "url": "/assets/images/pod-kits/wenax.jpg",
       "title": "Geekvape Wenax U Pod",
       "star": "7",
@@ -798,7 +812,20 @@
       "url": "/assets/images/pod-kits/wenax-slim.jpg",
       "title": "Geekvape Wenax M1 Pod Kit",
       "star": "38",
-      "text": "939.90"
+      "text": "939.90",
+      "price": "1234.56"
     }
   ]
-}
+
+  function getProductData(id) {
+    let productData = productArray.find(product => product.id === id)
+
+    if (productData == undefined) {
+      console.log("Product data does not exist for ID: " + id);
+      return undefined;
+    }
+
+    return productData;
+  }
+
+  export { productArray, getProductData };

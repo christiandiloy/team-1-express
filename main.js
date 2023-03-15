@@ -8,10 +8,10 @@ const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const itemModel = require('./models/itemModel');
-const subscriberModel = require('./models/subscriberModel');
-const path = require('path');
-const { EMAIL, PASSWORD } = require('./env.js');
+const itemModel = require("./models/itemModel");
+const subscriberModel = require("./models/subscriberModel");
+const path = require("path");
+const { EMAIL, PASSWORD } = require("./env.js");
 
 const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
   host: "20.211.37.87",
@@ -49,6 +49,33 @@ const User = sequelize.define(
   }
 );
 
+const Address = sequelize.define(
+  "address",
+  {
+    userID: {
+      type: Sequelize.STRING,
+    },
+    full_name: {
+      type: Sequelize.STRING,
+    },
+    contact_no: {
+      type: Sequelize.STRING,
+    },
+    place: {
+      type: Sequelize.STRING,
+    },
+    postal_code: {
+      type: Sequelize.STRING,
+    },
+    house_no: {
+      type: Sequelize.STRING,
+    },
+  },
+  {
+    tableName: "address",
+    timestamps: false,
+  }
+);
 let rawData = fs.readFileSync("data.json"); // read file from given path
 let parsedData = JSON.parse(rawData); // parse rawData (which is a string into a JSON object)
 app.use(cors()); // initialize cors plugin on express
@@ -60,8 +87,8 @@ app.use(
 );
 
 app.use(bodyParser.json()); // initialize body parser plugin on express
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 let defaultData = [];
 
 app.post("/api/v2/login", function (request, response) {
@@ -167,6 +194,32 @@ app.post("/api/v2/register", checkDuplicate, function (request, response) {
         });
     }
   });
+});
+
+app.post("/api/v2/address", function (request, response) {
+  let retVal = { success: false };
+  console.log("req: ", request.body);
+  Address.create({
+    userID: request.body.userID,
+    full_name: request.body.fullName,
+    contact_no: request.body.contactNo,
+    place: request.body.place,
+    postal_code: request.body.postalCode,
+    house_no: request.body.houseNo,
+  })
+    .then((result) => {
+      return result.dataValues;
+    })
+    .then((result) => {
+      retVal.success = true;
+      retVal.userData = result;
+    })
+    .finally(() => {
+      response.send(retVal);
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+    });
 });
 
 app.put("/api/v2/users/:userId/password", function (req, res) {
@@ -278,6 +331,7 @@ app.get("/getProduct", function (req, res) {
     }
   );
 });
+
 app.get("/keyword", function (req, res) {
   fs.readFile(
     __dirname + "/" + "all-products.json",
@@ -296,11 +350,10 @@ app.get("/keyword", function (req, res) {
   );
 });
 
-
 app.get("/store/item-page/:pageName", async (req, res) => {
   try {
     const pageName = req.params.pageName;
-    const item = await itemModel.findOne({ where: {page_name: pageName}});
+    const item = await itemModel.findOne({ where: { page_name: pageName } });
     if (item) {
       const itemData = {
         item_id: item.item_id,
@@ -309,7 +362,7 @@ app.get("/store/item-page/:pageName", async (req, res) => {
         item_desc: item.item_desc,
         item_category: item.item_category,
         item_series: item.item_series,
-        page_name: item.page_name
+        page_name: item.page_name,
       };
       res.json(itemData);
     } else {
@@ -321,7 +374,6 @@ app.get("/store/item-page/:pageName", async (req, res) => {
   }
 });
 
-
 app.post("/subscribe", async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -330,67 +382,68 @@ app.post("/subscribe", async (req, res) => {
       pass: PASSWORD,
     },
   });
+});
 
-app.post('/subscribe', async (req, res) => {
-
+app.post("/subscribe", async (req, res) => {
   let retVal = { success: false };
   console.log("req: ", request.body);
-  subscriberModel.findOne({
-    where: {
-      email: req.body.email,
-    },
-  }).then((result) => {
-    if (result) {
-      retVal.success = false;
-      retVal.message = "This email has already subscribed. Please do not input again.";
-      console.log(retVal.message)
-      res.send(retVal);
-    } else {
-      subscriberModel.create({
+  subscriberModel
+    .findOne({
+      where: {
         email: req.body.email,
-      })
-        .then((result) => {
-          return result.dataValues;
-        })
-        .then((result) => {
-          retVal.message = "Thank you for subscribing!"
-          console.log(retVal.message)
-          retVal.success = true;
-          retVal.userData = null;
-          // retVal.userData = result; // for auto login after registration
-          retVal.userData = result; // for auto login after registration
-        })
-        .finally(() => {
-          res.send(retVal);
-        })
-        .catch((error) => {
-          console.log("error: ", error);
-        });
+      },
+    })
+    .then((result) => {
+      if (result) {
+        retVal.success = false;
+        retVal.message =
+          "This email has already subscribed. Please do not input again.";
+        console.log(retVal.message);
+        res.send(retVal);
+      } else {
+        subscriberModel
+          .create({
+            email: req.body.email,
+          })
+          .then((result) => {
+            return result.dataValues;
+          })
+          .then((result) => {
+            retVal.message = "Thank you for subscribing!";
+            console.log(retVal.message);
+            retVal.success = true;
+            retVal.userData = null;
+            // retVal.userData = result; // for auto login after registration
+            retVal.userData = result; // for auto login after registration
+          })
+          .finally(() => {
+            res.send(retVal);
+          })
+          .catch((error) => {
+            console.log("error: ", error);
+          });
 
         let transporter = nodemailer.createTransport({
-          service: 'gmail',
+          service: "gmail",
           auth: {
             user: EMAIL,
-            pass: PASSWORD
+            pass: PASSWORD,
           },
         });
-      
+
         const msg = {
           from: `"Gon's Dispo Vape Shop" <${EMAIL}>`,
           to: `${req.body.email}, ${req.body.email}`,
           subject: "Thanks for Subscribing!",
           text: "Thanks for subscribing!",
-        }
-      
+        };
+
         let info = transporter.sendMail(msg);
-      
+
         console.log("Message sent: %s", info.messageId);
       }
     });
-
-  
-})
-
+});
 
 const runApp = async () => {
   try {

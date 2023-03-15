@@ -8,16 +8,16 @@ const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-const subscriberModel = require("./models/subscriberModel");
-const itemModel = require("./models/itemModel");
-const Image = require("./models/image");
-const multer = require("multer");
-const path = require("path");
-const { EMAIL, PASSWORD } = require("./env.js");
+const itemModel = require('./models/itemModel');
+const subscriberModel = require('./models/subscriberModel');
+const path = require('path');
+const { EMAIL, PASSWORD } = require('./env.js');
+
 const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
   host: "20.211.37.87",
   dialect: "mysql",
 });
+
 const User = sequelize.define(
   "user",
   {
@@ -48,6 +48,7 @@ const User = sequelize.define(
     timestamps: false,
   }
 );
+
 
 const Address = sequelize.define(
   "address",
@@ -85,10 +86,10 @@ app.use(
     extended: true,
   })
 );
-app.use(express.static("uploads"));
+
 app.use(bodyParser.json()); // initialize body parser plugin on express
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 let defaultData = [];
 
 app.post("/api/v2/login", function (request, response) {
@@ -108,12 +109,7 @@ app.post("/api/v2/login", function (request, response) {
       }
     })
     .then((result) => {
-      const checkedPassword = bcrypt.compareSync(
-        request.body.password,
-        result.password
-      );
-
-      if (checkedPassword) {
+      if (result.password === request.body.password) {
         retVal.success = true;
         delete result.password;
         retVal.userData = result;
@@ -129,6 +125,7 @@ app.post("/api/v2/login", function (request, response) {
     })
     .catch((error) => {
       console.log("error: ", error);
+      response.send(retVal);
     });
 });
 
@@ -354,10 +351,11 @@ app.get("/keyword", function (req, res) {
   );
 });
 
-app.get("/store/item-page/:itemId", async (req, res) => {
+
+app.get("/store/item-page/:pageName", async (req, res) => {
   try {
-    const itemId = req.params.itemId;
-    const item = await itemModel.findByPk(itemId);
+    const pageName = req.params.pageName;
+    const item = await itemModel.findOne({ where: {page_name: pageName}});
     if (item) {
       const itemData = {
         item_id: item.item_id,
@@ -366,7 +364,7 @@ app.get("/store/item-page/:itemId", async (req, res) => {
         item_desc: item.item_desc,
         item_category: item.item_category,
         item_series: item.item_series,
-        item_main_image: item.item_main_image,
+        page_name: item.page_name
       };
       res.json(itemData);
     } else {
@@ -378,6 +376,7 @@ app.get("/store/item-page/:itemId", async (req, res) => {
   }
 });
 
+
 app.post("/subscribe", async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -387,79 +386,66 @@ app.post("/subscribe", async (req, res) => {
     },
   });
 
-  const msg = {
-    from: `"Gon's Dispo Vape Shop" <${EMAIL}>`,
-    to: `${req.body.email}, ${req.body.email}`,
-    subject: "Subscribed",
-    text: "Hello Subscriber!",
-  };
+app.post('/subscribe', async (req, res) => {
 
-  let info = await transporter.sendMail(msg);
+  let retVal = { success: false };
+  console.log("req: ", request.body);
+  subscriberModel.findOne({
+    where: {
+      email: req.body.email,
+    },
+  }).then((result) => {
+    if (result) {
+      retVal.success = false;
+      retVal.message = "This email has already subscribed. Please do not input again.";
+      console.log(retVal.message)
+      res.send(retVal);
+    } else {
+      subscriberModel.create({
+        email: req.body.email,
+      })
+        .then((result) => {
+          return result.dataValues;
+        })
+        .then((result) => {
+          retVal.message = "Thank you for subscribing!"
+          console.log(retVal.message)
+          retVal.success = true;
+          retVal.userData = null;
+          // retVal.userData = result; // for auto login after registration
+          retVal.userData = result; // for auto login after registration
+        })
+        .finally(() => {
+          res.send(retVal);
+        })
+        .catch((error) => {
+          console.log("error: ", error);
+        });
 
-  console.log("Message sent: %s", info.messageId);
-  console.log("Email has been sent to:", req.body.email);
-});
-
-console.log("path:", path);
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
-
-const upload = multer({ storage: storage });
-
-app.post("/items/:itemId/images", upload.single("image"), async (req, res) => {
-  try {
-    const itemId = req.params.itemId;
-
-    console.log(req.file);
-    const filePath = req.file.path;
-    const fileName = req.file.filename;
-    const fileType = req.file.mimetype.split("/")[1];
-    const fileNameWithExtension = `${req.file.filename}.${fileType}`;
-
-    if (!filePath) {
-      throw new Error("File path is empty");
-    }
-
-    const newFilePath = `${filePath}.${fileType}`;
-    fs.renameSync(filePath, newFilePath);
-
-    const image = await Image.update(
-      {
-        item_main_image: fileNameWithExtension,
-      },
-      {
-        where: {
-          item_id: itemId,
-        },
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: EMAIL,
+            pass: PASSWORD
+          },
+        });
+      
+        const msg = {
+          from: `"Gon's Dispo Vape Shop" <${EMAIL}>`,
+          to: `${req.body.email}, ${req.body.email}`,
+          subject: "Thanks for Subscribing!",
+          text: "Thanks for subscribing!",
+        }
+      
+        let info = transporter.sendMail(msg);
+      
+        console.log("Message sent: %s", info.messageId);
       }
-    );
+    });
 
-    console.log("image:", image);
+  
+})
 
-    res.json({ success: true, image, fileType });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to save image" });
-  }
-});
-
-app.use(function (err, req, res, next) {
-  if (err instanceof multer.MulterError) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to upload file" });
-  } else if (err) {
-    console.error(err);
-    res.status(500).json({ error: "Unknown error occurred" });
-  } else {
-    next();
-  }
-});
 
 const runApp = async () => {
   try {

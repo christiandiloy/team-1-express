@@ -286,7 +286,7 @@ app.put("/api/v2/users/:id/address", function (req, res) {
     });
 });
 
-app.delete("/api/v2/users/:id/address", function (req, res) {
+app.delete("/api/v2/users/:id/delAddress", function (req, res) {
   const id = req.params.id;
   Address.findByPk(id)
     .then((address) => {

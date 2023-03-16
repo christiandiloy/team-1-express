@@ -245,6 +245,48 @@ app.get("/api/v2/users/:userId/addresses", function (req, res) {
     });
 });
 
+app.put("/api/v2/users/:userId/address/:id", function (req, res) {
+  const userId = req.params.userId;
+  const id = req.params.id;
+  const fullName = req.body.fullName;
+  const contactNo = req.body.contactNo;
+  const place = req.body.place;
+  const postalCode = req.body.postalCode;
+  const houseNo = req.body.houseNo;
+  User.findOne({ where: { id: id, userId: userId } })
+    .then((addresses) => {
+      if (addresses) {
+        addresses
+          .update({
+            fullName: fullName,
+            contactNo: contactNo,
+            place: place,
+            postalCode: postalCode,
+            houseNo: houseNo,
+          })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Address updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user Address:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user Address.",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "User not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding user:", error);
+      res.send({ success: false, message: "Failed to find user" });
+    });
+});
+
 app.put("/api/v2/users/:userId/password", function (req, res) {
   const userId = req.params.userId;
   const newPassword = req.body.newPassword;

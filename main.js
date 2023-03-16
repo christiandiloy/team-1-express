@@ -245,24 +245,23 @@ app.get("/api/v2/users/:userId/addresses", function (req, res) {
     });
 });
 
-app.put("/api/v2/users/:userId/address/:id", function (req, res) {
-  const userId = req.params.userId;
+app.put("/api/v2/users/:id/address", function (req, res) {
   const id = req.params.id;
   const fullName = req.body.fullName;
   const contactNo = req.body.contactNo;
   const place = req.body.place;
   const postalCode = req.body.postalCode;
   const houseNo = req.body.houseNo;
-  User.findOne({ where: { id: id, userId: userId } })
-    .then((addresses) => {
-      if (addresses) {
-        addresses
+  Address.findByPk(id)
+    .then((address) => {
+      if (address) {
+        address
           .update({
-            fullName: fullName,
-            contactNo: contactNo,
+            full_name: fullName,
+            contact_no: contactNo,
             place: place,
-            postalCode: postalCode,
-            houseNo: houseNo,
+            postal_code: postalCode,
+            house_no: houseNo,
           })
           .then(() => {
             res.send({
@@ -278,12 +277,12 @@ app.put("/api/v2/users/:userId/address/:id", function (req, res) {
             });
           });
       } else {
-        res.send({ success: false, message: "User not found" });
+        res.send({ success: false, message: "Address not found" });
       }
     })
     .catch((error) => {
-      console.log("Error finding user:", error);
-      res.send({ success: false, message: "Failed to find user" });
+      console.log("Error finding address:", error);
+      res.send({ success: false, message: "Failed to find address" });
     });
 });
 

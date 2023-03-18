@@ -77,6 +77,29 @@ const Address = sequelize.define(
   }
 );
 
+const CartItem = sequelize.define(
+  "cartItem",
+  {
+    id: {
+      type: Sequelize.INTEGER,
+    },
+    userID: {
+      type: Sequelize.STRING,
+    },
+    category: Sequelize.STRING,
+    url: Sequelize.STRING,
+    cartQuantity: Sequelize.STRING,
+    price: Sequelize.DECIMAL,
+    star: Sequelize.STRING,
+    text: Sequelize.STRING,
+    title: Sequelize.STRING,
+  },
+  {
+    tableName: "cart",
+    timestamps: false,
+  }
+);
+
 let rawData = fs.readFileSync("data.json"); // read file from given path
 let parsedData = JSON.parse(rawData); // parse rawData (which is a string into a JSON object)
 app.use(cors()); // initialize cors plugin on express
@@ -530,6 +553,25 @@ app.post("/subscribe", async (req, res) => {
         console.log("Message sent: %s", info.messageId);
       }
     });
+});
+
+//Cart-item
+app.post("/api/cart", async (req, res) => {
+  const { userID, cartItems } = req.body;
+
+  try {
+    await CartItem.destroy({ where: { userID } }); // Delete existing data for the user
+
+    // Loop through the array of items and save each item to the database
+    for (const item of cartItems) {
+      await CartItem.create({ userID, ...item });
+    }
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 });
 
 const runApp = async () => {

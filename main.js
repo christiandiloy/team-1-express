@@ -245,6 +245,77 @@ app.get("/api/v2/users/:userId/addresses", function (req, res) {
     });
 });
 
+app.put("/api/v2/users/:id/address", function (req, res) {
+  const id = req.params.id;
+  const fullName = req.body.fullName;
+  const contactNo = req.body.contactNo;
+  const place = req.body.place;
+  const postalCode = req.body.postalCode;
+  const houseNo = req.body.houseNo;
+  Address.findByPk(id)
+    .then((address) => {
+      if (address) {
+        address
+          .update({
+            full_name: fullName,
+            contact_no: contactNo,
+            place: place,
+            postal_code: postalCode,
+            house_no: houseNo,
+          })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Address updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user Address:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user Address.",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "Address not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding address:", error);
+      res.send({ success: false, message: "Failed to find address" });
+    });
+});
+
+app.delete("/api/v2/users/:id/delAddress", function (req, res) {
+  const id = req.params.id;
+  Address.findByPk(id)
+    .then((address) => {
+      if (address) {
+        address
+          .destroy()
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Address deleted successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error deleting user Address:", error);
+            res.send({
+              success: false,
+              message: "Failed to delete user Address.",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "Address not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding address:", error);
+      res.send({ success: false, message: "Failed to find address" });
+    });
+});
+
 app.put("/api/v2/users/:userId/password", function (req, res) {
   const userId = req.params.userId;
   const newPassword = req.body.newPassword;

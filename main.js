@@ -77,22 +77,33 @@ const Address = sequelize.define(
   }
 );
 
-const CartItem = sequelize.define(
-  "cartItem",
+const CartItems = sequelize.define(
+  "cartItems",
   {
-    id: {
-      type: Sequelize.INTEGER,
-    },
     userID: {
       type: Sequelize.STRING,
     },
-    category: Sequelize.STRING,
-    url: Sequelize.STRING,
-    cartQuantity: Sequelize.STRING,
-    price: Sequelize.DECIMAL,
-    star: Sequelize.STRING,
-    text: Sequelize.STRING,
-    title: Sequelize.STRING,
+    cartQuantity: {
+      type: Sequelize.STRING,
+    },
+    itemID: {
+      type: Sequelize.STRING,
+    },
+    price: {
+      type: Sequelize.DECIMAL,
+    },
+    star: {
+      type: Sequelize.STRING,
+    },
+    text: {
+      type: Sequelize.STRING,
+    },
+    title: {
+      type: Sequelize.STRING,
+    },
+    url: {
+      type: Sequelize.STRING,
+    },
   },
   {
     tableName: "cart",
@@ -555,22 +566,31 @@ app.post("/subscribe", async (req, res) => {
     });
 });
 
-//Cart-item
 app.post("/api/cart", async (req, res) => {
-  const { userID, cartItems } = req.body;
-
   try {
-    await CartItem.destroy({ where: { userID } }); // Delete existing data for the user
+    const items = req.body.items; // array of items
 
-    // Loop through the array of items and save each item to the database
-    for (const item of cartItems) {
-      await CartItem.create({ userID, ...item });
-    }
+    // Map over the array of items and create a new array of objects to be inserted into the database
+    const cartItems = items.map((item) => {
+      return {
+        userID: item.userID,
+        cartQuantity: item.cartQuantity,
+        itemID: item.itemID,
+        price: item.price,
+        star: item.star,
+        text: item.text,
+        title: item.title,
+        url: item.url,
+      };
+    });
 
-    res.sendStatus(200);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
+    // Insert the array of objects into the database
+    await CartItems.bulkCreate(cartItems);
+
+    res.status(200).send("Items successfully saved to the database");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error saving items to the database");
   }
 });
 

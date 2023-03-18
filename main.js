@@ -76,6 +76,7 @@ const Address = sequelize.define(
     timestamps: false,
   }
 );
+
 let rawData = fs.readFileSync("data.json"); // read file from given path
 let parsedData = JSON.parse(rawData); // parse rawData (which is a string into a JSON object)
 app.use(cors()); // initialize cors plugin on express
@@ -245,7 +246,7 @@ app.get("/api/v2/users/:userId/addresses", function (req, res) {
     });
 });
 
-app.put("/api/v2/users/:id/address", function (req, res) {
+app.put("/api/v2/users/:id/updateAddress", function (req, res) {
   const id = req.params.id;
   const fullName = req.body.fullName;
   const contactNo = req.body.contactNo;
@@ -286,33 +287,25 @@ app.put("/api/v2/users/:id/address", function (req, res) {
     });
 });
 
-app.delete("/api/v2/users/:id/delAddress", function (req, res) {
+app.delete("/api/v2/users/:id/deleteAddress/:addressId", function (req, res) {
   const id = req.params.id;
-  Address.findByPk(id)
-    .then((address) => {
-      if (address) {
-        address
-          .destroy()
-          .then(() => {
-            res.send({
-              success: true,
-              message: "Address deleted successfully",
-            });
-          })
-          .catch((error) => {
-            console.log("Error deleting user Address:", error);
-            res.send({
-              success: false,
-              message: "Failed to delete user Address.",
-            });
-          });
+  const addressId = req.params.addressId;
+  Address.destroy({ where: { id: addressId, userID: id } })
+    .then((numRowsDeleted) => {
+      if (numRowsDeleted === 1) {
+        res.send({
+          success: true,
+          message: "Address deleted successfully",
+        });
       } else {
         res.send({ success: false, message: "Address not found" });
       }
     })
     .catch((error) => {
-      console.log("Error finding address:", error);
-      res.send({ success: false, message: "Failed to find address" });
+      console.log("Error deleting address:", error);
+      res
+        .status(500)
+        .send({ success: false, message: "Failed to delete address" });
     });
 });
 

@@ -8,11 +8,18 @@ const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
+<<<<<<< HEAD
 const itemModel = require('./models/itemModel');
 const subscriberModel = require('./models/subscriberModel');
 const path = require('path');
 const { EMAIL, PASSWORD, DATABASE_SCHEMA, DATABASE_USERNAME, 
   DATABASE_PASSWORD, DATABASE_HOST, DATABASE_DIALECT } = require('./env.js');
+=======
+const itemModel = require("./models/itemModel");
+const subscriberModel = require("./models/subscriberModel");
+const path = require("path");
+const { EMAIL, PASSWORD } = require("./env.js");
+>>>>>>> 463c188f552078a22d9cf9aa33bfdcb6ce483570
 
 const sequelize = new Sequelize(DATABASE_SCHEMA, DATABASE_USERNAME, DATABASE_PASSWORD, {
     host: DATABASE_HOST,
@@ -50,6 +57,33 @@ const User = sequelize.define(
   }
 );
 
+const Address = sequelize.define(
+  "address",
+  {
+    userID: {
+      type: Sequelize.STRING,
+    },
+    full_name: {
+      type: Sequelize.STRING,
+    },
+    contact_no: {
+      type: Sequelize.STRING,
+    },
+    place: {
+      type: Sequelize.STRING,
+    },
+    postal_code: {
+      type: Sequelize.STRING,
+    },
+    house_no: {
+      type: Sequelize.STRING,
+    },
+  },
+  {
+    tableName: "address",
+    timestamps: false,
+  }
+);
 let rawData = fs.readFileSync("data.json"); // read file from given path
 let parsedData = JSON.parse(rawData); // parse rawData (which is a string into a JSON object)
 app.use(cors()); // initialize cors plugin on express
@@ -61,8 +95,8 @@ app.use(
 );
 
 app.use(bodyParser.json()); // initialize body parser plugin on express
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 let defaultData = [];
 
 app.post("/api/v2/login", function (request, response) {
@@ -82,7 +116,12 @@ app.post("/api/v2/login", function (request, response) {
       }
     })
     .then((result) => {
-      if (result.password === request.body.password) {
+      const checkedPassword = bcrypt.compareSync(
+        request.body.password,
+        result.password
+      );
+
+      if (checkedPassword) {
         retVal.success = true;
         delete result.password;
         retVal.userData = result;
@@ -98,7 +137,6 @@ app.post("/api/v2/login", function (request, response) {
     })
     .catch((error) => {
       console.log("error: ", error);
-      response.send(retVal);
     });
 });
 
@@ -168,6 +206,122 @@ app.post("/api/v2/register", checkDuplicate, function (request, response) {
         });
     }
   });
+});
+
+app.post("/api/v2/address", function (request, response) {
+  let retVal = { success: false };
+  console.log("req: ", request.body);
+  Address.create({
+    userID: request.body.userID,
+    full_name: request.body.fullName,
+    contact_no: request.body.contactNo,
+    place: request.body.place,
+    postal_code: request.body.postalCode,
+    house_no: request.body.houseNo,
+  })
+    .then((result) => {
+      return result.dataValues;
+    })
+    .then((result) => {
+      retVal.success = true;
+      retVal.userData = result;
+    })
+    .finally(() => {
+      response.send(retVal);
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+    });
+});
+
+app.get("/api/v2/users/:userId/addresses", function (req, res) {
+  const userId = req.params.userId;
+  Address.findAll({
+    where: {
+      userId: userId,
+    },
+  })
+    .then((addresses) => {
+      res.send({
+        success: true,
+        data: addresses,
+      });
+    })
+    .catch((error) => {
+      console.log("Error finding addresses:", error);
+      res.send({ success: false, message: "Failed to find addresses" });
+    });
+});
+
+app.put("/api/v2/users/:id/address", function (req, res) {
+  const id = req.params.id;
+  const fullName = req.body.fullName;
+  const contactNo = req.body.contactNo;
+  const place = req.body.place;
+  const postalCode = req.body.postalCode;
+  const houseNo = req.body.houseNo;
+  Address.findByPk(id)
+    .then((address) => {
+      if (address) {
+        address
+          .update({
+            full_name: fullName,
+            contact_no: contactNo,
+            place: place,
+            postal_code: postalCode,
+            house_no: houseNo,
+          })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Address updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user Address:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user Address.",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "Address not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding address:", error);
+      res.send({ success: false, message: "Failed to find address" });
+    });
+});
+
+app.delete("/api/v2/users/:id/delAddress", function (req, res) {
+  const id = req.params.id;
+  Address.findByPk(id)
+    .then((address) => {
+      if (address) {
+        address
+          .destroy()
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Address deleted successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error deleting user Address:", error);
+            res.send({
+              success: false,
+              message: "Failed to delete user Address.",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "Address not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding address:", error);
+      res.send({ success: false, message: "Failed to find address" });
+    });
 });
 
 app.put("/api/v2/users/:userId/password", function (req, res) {
@@ -279,6 +433,7 @@ app.get("/getProduct", function (req, res) {
     }
   );
 });
+
 app.get("/keyword", function (req, res) {
   fs.readFile(
     __dirname + "/" + "all-products.json",
@@ -297,92 +452,90 @@ app.get("/keyword", function (req, res) {
   );
 });
 
-app.get('/store/item-page/:itemId', async (req, res) => {
+app.get("/store/item-page/:pageName", async (req, res) => {
   try {
-      const itemId = req.params.itemId;
-      const item = await itemModel.findByPk(itemId);
-      if (item) {
-          const itemData = {
-          item_id: item.item_id,
-          item_name: item.item_name,
-          item_price: item.item_price,
-          item_desc: item.item_desc,
-          item_category: item.item_category,
-          item_series: item.item_series
-          };
-          res.json(itemData);
-      } else {
-          res.status(404).json({ error: 'Item not found' });
-      }
-      } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: 'Server error' });
+    const pageName = req.params.pageName;
+    const item = await itemModel.findOne({ where: { page_name: pageName } });
+    if (item) {
+      const itemData = {
+        item_id: item.item_id,
+        item_name: item.item_name,
+        item_price: item.item_price,
+        item_desc: item.item_desc,
+        item_category: item.item_category,
+        item_series: item.item_series,
+        page_name: item.page_name,
+      };
+      res.json(itemData);
+    } else {
+      res.status(404).json({ error: "Item not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-
-app.post('/subscribe', async (req, res) => {
-  const emailMsg = "This email has already subscribed. Please do not input again.";
-  const emailThankYouMsg = "Thank you for subscribing!"
-  
+app.post("/subscribe", async (req, res) => {
   let retVal = { success: false };
   console.log("req: ", request.body);
-  subscriberModel.findOne({
-    where: {
-      email: req.body.email,
-    },
-  }).then((result) => {
-    if (result) {
-      retVal.success = false;
-      retVal.message = emailMsg;
-      console.log(retVal.message)
-      res.send(retVal);
-    } else {
-      subscriberModel.create({
+  subscriberModel
+    .findOne({
+      where: {
         email: req.body.email,
-      })
-        .then((result) => {
-          return result.dataValues;
-        })
-        .then((result) => {
-          retVal.message = emailThankYouMsg;
-          console.log(retVal.message)
-          retVal.success = true;
-          retVal.userData = null;
-          // retVal.userData = result; // for auto login after registration
-          retVal.userData = result; // for auto login after registration
-        })
-        .finally(() => {
-          res.send(retVal);
-        })
-        .catch((error) => {
-          console.log("error: ", error);
-        });
+      },
+    })
+    .then((result) => {
+      if (result) {
+        retVal.success = false;
+        retVal.message =
+          "This email has already subscribed. Please do not input again.";
+        console.log(retVal.message);
+        res.send(retVal);
+      } else {
+        subscriberModel
+          .create({
+            email: req.body.email,
+          })
+          .then((result) => {
+            return result.dataValues;
+          })
+          .then((result) => {
+            retVal.message = "Thank you for subscribing!";
+            console.log(retVal.message);
+            retVal.success = true;
+            retVal.userData = null;
+            // retVal.userData = result; // for auto login after registration
+            retVal.userData = result; // for auto login after registration
+          })
+          .finally(() => {
+            res.send(retVal);
+          })
+          .catch((error) => {
+            console.log("error: ", error);
+          });
 
         let transporter = nodemailer.createTransport({
-          service: 'gmail',
+          service: "gmail",
           auth: {
             user: EMAIL,
-            pass: PASSWORD
+            pass: PASSWORD,
           },
         });
-      
+
         const msg = {
           from: `"Gon's Dispo Vape Shop" <${EMAIL}>`,
           to: `${req.body.email}, ${req.body.email}`,
           subject: "Thanks for Subscribing!",
           text: "Thanks for subscribing!",
-        }
-      
+        };
+
         let info = transporter.sendMail(msg);
-      
+
         console.log("Message sent: %s", info.messageId);
       }
     });
-
-  
-})
-
+});
 
 const runApp = async () => {
   try {

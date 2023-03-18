@@ -36,6 +36,11 @@ const Item = sequelize.define('Item', {
   item_main_image: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  page_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
   }
 }, {
   tableName: 'item_page',

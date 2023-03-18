@@ -245,7 +245,7 @@ app.get("/api/v2/users/:userId/addresses", function (req, res) {
     });
 });
 
-app.put("/api/v2/users/:id/upAddress", function (req, res) {
+app.put("/api/v2/users/:id/address", function (req, res) {
   const id = req.params.id;
   const fullName = req.body.fullName;
   const contactNo = req.body.contactNo;

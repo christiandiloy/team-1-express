@@ -8,18 +8,11 @@ const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
-<<<<<<< HEAD
-const itemModel = require('./models/itemModel');
-const subscriberModel = require('./models/subscriberModel');
-const path = require('path');
-const { EMAIL, PASSWORD, DATABASE_SCHEMA, DATABASE_USERNAME, 
-  DATABASE_PASSWORD, DATABASE_HOST, DATABASE_DIALECT } = require('./env.js');
-=======
 const itemModel = require("./models/itemModel");
 const subscriberModel = require("./models/subscriberModel");
 const path = require("path");
 const { EMAIL, PASSWORD } = require("./env.js");
->>>>>>> 463c188f552078a22d9cf9aa33bfdcb6ce483570
+const { DATABASE_SCHEMA, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_DIALECT } = require('./env.js');
 
 const sequelize = new Sequelize(DATABASE_SCHEMA, DATABASE_USERNAME, DATABASE_PASSWORD, {
     host: DATABASE_HOST,

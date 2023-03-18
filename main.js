@@ -11,12 +11,13 @@ const bcrypt = require("bcrypt");
 const itemModel = require('./models/itemModel');
 const subscriberModel = require('./models/subscriberModel');
 const path = require('path');
-const { EMAIL, PASSWORD } = require('./env.js');
+const { EMAIL, PASSWORD, DATABASE_SCHEMA, DATABASE_USERNAME, 
+  DATABASE_PASSWORD, DATABASE_HOST, DATABASE_DIALECT } = require('./env.js');
 
-const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
-  host: "20.211.37.87",
-  dialect: "mysql",
-});
+const sequelize = new Sequelize(DATABASE_SCHEMA, DATABASE_USERNAME, DATABASE_PASSWORD, {
+    host: DATABASE_HOST,
+    dialect: DATABASE_DIALECT,
+  });
 
 const User = sequelize.define(
   "user",
@@ -321,7 +322,9 @@ app.get('/store/item-page/:itemId', async (req, res) => {
 
 
 app.post('/subscribe', async (req, res) => {
-
+  const emailMsg = "This email has already subscribed. Please do not input again.";
+  const emailThankYouMsg = "Thank you for subscribing!"
+  
   let retVal = { success: false };
   console.log("req: ", request.body);
   subscriberModel.findOne({
@@ -331,7 +334,7 @@ app.post('/subscribe', async (req, res) => {
   }).then((result) => {
     if (result) {
       retVal.success = false;
-      retVal.message = "This email has already subscribed. Please do not input again.";
+      retVal.message = emailMsg;
       console.log(retVal.message)
       res.send(retVal);
     } else {
@@ -342,7 +345,7 @@ app.post('/subscribe', async (req, res) => {
           return result.dataValues;
         })
         .then((result) => {
-          retVal.message = "Thank you for subscribing!"
+          retVal.message = emailThankYouMsg;
           console.log(retVal.message)
           retVal.success = true;
           retVal.userData = null;

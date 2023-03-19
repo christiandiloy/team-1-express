@@ -111,6 +111,34 @@ const CartItems = sequelize.define(
   }
 );
 
+const Order = sequelize.define(
+  "cartItems",
+  {
+    userID: {
+      type: Sequelize.INT,
+    },
+    orderID: {
+      type: Sequelize.INT,
+    },
+    itemID: {
+      type: Sequelize.INT,
+    },
+    quantity: {
+      type: Sequelize.INT,
+    },
+    address: {
+      type: Sequelize.STRING,
+    },
+    total: {
+      type: Sequelize.DECIMAL,
+    },
+  },
+  {
+    tableName: "orders",
+    timestamps: false,
+  }
+);
+
 let rawData = fs.readFileSync("data.json"); // read file from given path
 let parsedData = JSON.parse(rawData); // parse rawData (which is a string into a JSON object)
 app.use(cors()); // initialize cors plugin on express
@@ -591,6 +619,24 @@ app.post("/api/cart", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Error saving items to the database");
+  }
+});
+
+app.post("/api/orders", async (req, res) => {
+  try {
+    // create a new order
+    const order = await Order.create({
+      userID: req.body.userID,
+      orderID: req.body.orderID,
+      itemID: req.body.itemID,
+      quantity: req.body.quantity,
+      address: req.body.address,
+      total: req.body.total,
+    });
+
+    res.status(201).json(order);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

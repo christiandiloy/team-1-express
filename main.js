@@ -112,19 +112,19 @@ const CartItems = sequelize.define(
 );
 
 const Order = sequelize.define(
-  "cartItems",
+  "orders",
   {
     userID: {
-      type: Sequelize.INT,
+      type: Sequelize.INTEGER,
     },
     orderID: {
-      type: Sequelize.INT,
+      type: Sequelize.INTEGER,
     },
     itemID: {
-      type: Sequelize.INT,
+      type: Sequelize.INTEGER,
     },
     quantity: {
-      type: Sequelize.INT,
+      type: Sequelize.INTEGER,
     },
     address: {
       type: Sequelize.STRING,

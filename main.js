@@ -120,17 +120,17 @@ const Order = sequelize.define(
     orderID: {
       type: Sequelize.INTEGER,
     },
-    itemID: {
-      type: Sequelize.INTEGER,
-    },
-    quantity: {
-      type: Sequelize.INTEGER,
-    },
     address: {
       type: Sequelize.STRING,
     },
     total: {
       type: Sequelize.DECIMAL,
+    },
+    itemId: {
+      type: Sequelize.INTEGER,
+    },
+    quantity: {
+      type: Sequelize.INTEGER,
     },
   },
   {
@@ -622,21 +622,44 @@ app.post("/api/cart", async (req, res) => {
   }
 });
 
-app.post("/api/orders", async (req, res) => {
-  try {
-    // create a new order
-    const order = await Order.create({
-      userID: req.body.userID,
-      orderID: req.body.orderID,
-      itemID: req.body.itemID,
-      quantity: req.body.quantity,
-      address: req.body.address,
-      total: req.body.total,
-    });
+// app.post("/api/orders", async (req, res) => {
+//   try {
+//     // create a new order
+//     const order = await Order.create({
+//       userID: req.body.userID,
+//       orderID: req.body.orderID,
+//       itemID: req.body.itemID,
+//       quantity: req.body.quantity,
+//       address: req.body.address,
+//       total: req.body.total,
+//     });
 
-    res.status(201).json(order);
+//     res.status(201).json(order);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+app.post("/api/orders", async (req, res) => {
+  const { userID, orderID, items, address, total } = req.body;
+
+  try {
+    // Create new orders for each item and save them to the database
+    for (const item of items) {
+      const order = await Order.create({
+        userID,
+        orderID,
+        address,
+        total,
+        itemId: item.id,
+        quantity: item.quantity,
+      });
+    }
+
+    res.json({ message: "Order saved successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 

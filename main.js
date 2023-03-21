@@ -77,6 +77,20 @@ const Address = sequelize.define(
   }
 );
 
+const ItemPage = sequelize.define("item_page", {
+  item_id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
+  item_name: Sequelize.STRING,
+  item_price: Sequelize.DECIMAL,
+  item_desc: Sequelize.TEXT,
+  item_category: Sequelize.STRING,
+  item_series: Sequelize.STRING,
+  item_main_image: Sequelize.STRING,
+  page_name: Sequelize.STRING,
+});
+
 const CartItems = sequelize.define(
   "cartItems",
   {
@@ -523,6 +537,16 @@ app.get("/store/item-page/:pageName", async (req, res) => {
   }
 });
 
+app.get("/items", async (req, res) => {
+  try {
+    const items = await ItemPage.findAll();
+    res.json(items);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
 app.post("/subscribe", async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -597,23 +621,44 @@ app.post("/subscribe", async (req, res) => {
 app.post("/api/cart", async (req, res) => {
   try {
     const items = req.body.items; // array of items
+    const userID = req.body.userID;
+
+    // Retrieve items from database that belong to the user with the given userID
+    const existingItems = await CartItems.findAll({
+      where: {
+        userID: userID,
+      },
+    });
 
     // Map over the array of items and create a new array of objects to be inserted into the database
     const cartItems = items.map((item) => {
+      // Check if the item already exists in the database
+      const exists = existingItems.some(
+        (existingItem) => existingItem.itemID === item.id
+      );
+
+      // If the item already exists in the database, skip it
+      if (exists) {
+        return null;
+      }
+
       return {
-        userID: item.userID,
         cartQuantity: item.cartQuantity,
-        itemID: item.itemID,
+        itemID: item.id, // Use the 'id' property as the 'itemID'
         price: item.price,
         star: item.star,
         text: item.text,
         title: item.title,
         url: item.url,
+        userID: userID,
       };
     });
 
+    // Filter out any null values
+    const filteredCartItems = cartItems.filter((item) => item !== null);
+
     // Insert the array of objects into the database
-    await CartItems.bulkCreate(cartItems);
+    await CartItems.bulkCreate(filteredCartItems);
 
     res.status(200).send("Items successfully saved to the database");
   } catch (error) {
@@ -623,45 +668,27 @@ app.post("/api/cart", async (req, res) => {
 });
 
 // app.post("/api/orders", async (req, res) => {
-//   try {
-//     // create a new order
-//     const order = await Order.create({
-//       userID: req.body.userID,
-//       orderID: req.body.orderID,
-//       itemID: req.body.itemID,
-//       quantity: req.body.quantity,
-//       address: req.body.address,
-//       total: req.body.total,
-//     });
+//   const { userID, orderID, items, address, total } = req.body;
 
-//     res.status(201).json(order);
+//   try {
+//     // Create new orders for each item and save them to the database
+//     for (const item of items) {
+//       const order = await Order.create({
+//         userID,
+//         orderID,
+//         address,
+//         total,
+//         itemId: item.id,
+//         quantity: item.quantity,
+//       });
+//     }
+
+//     res.json({ message: "Order saved successfully" });
 //   } catch (error) {
-//     res.status(500).json({ error: error.message });
+//     console.error(error);
+//     res.status(500).json({ message: "Internal server error" });
 //   }
 // });
-
-app.post("/api/orders", async (req, res) => {
-  const { userID, orderID, items, address, total } = req.body;
-
-  try {
-    // Create new orders for each item and save them to the database
-    for (const item of items) {
-      const order = await Order.create({
-        userID,
-        orderID,
-        address,
-        total,
-        itemId: item.id,
-        quantity: item.quantity,
-      });
-    }
-
-    res.json({ message: "Order saved successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
 
 const runApp = async () => {
   try {

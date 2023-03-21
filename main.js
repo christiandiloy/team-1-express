@@ -4,6 +4,7 @@ const bodyParser = require("body-parser"); // this allows us to ready request da
 const app = express(); // initialize express server into a variable
 const fs = require("fs"); // use file system of windows or other OS to access local files
 const nodemailer = require("nodemailer"); //send email to users
+const hbs = require('nodemailer-express-handlebars');
 const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
@@ -164,7 +165,9 @@ app.use(
   })
 );
 
+
 app.use(bodyParser.json()); // initialize body parser plugin on express
+app.use(express.static(path.join(__dirname, "views")));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 let defaultData = [];
@@ -623,11 +626,23 @@ app.post("/subscribe", async (req, res) => {
           },
         });
 
+        const handlebarsOptions= {
+          viewEngine: {
+            extName: ".handlebars",
+            partialsDir: path.resolve('./views'),
+            defaultLayout: false,
+          },
+          viewPath: path.resolve('./views'),
+          extName: ".handlebars",
+        }
+
+        transporter.use('compile', hbs(handlebarsOptions));
+
         const msg = {
           from: `"Gon's Dispo Vape Shop" <${EMAIL}>`,
           to: `${req.body.email}, ${req.body.email}`,
           subject: "Thanks for Subscribing!",
-          text: "Thanks for subscribing!",
+          template: 'template'
         };
 
         let info = transporter.sendMail(msg);

@@ -77,6 +77,83 @@ const Address = sequelize.define(
     timestamps: false,
   }
 );
+
+const ItemPage = sequelize.define("item_page", {
+  item_id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
+  item_name: Sequelize.STRING,
+  item_price: Sequelize.DECIMAL,
+  item_desc: Sequelize.TEXT,
+  item_category: Sequelize.STRING,
+  item_series: Sequelize.STRING,
+  item_main_image: Sequelize.STRING,
+  page_name: Sequelize.STRING,
+});
+
+const CartItems = sequelize.define(
+  "cartItems",
+  {
+    userID: {
+      type: Sequelize.STRING,
+    },
+    cartQuantity: {
+      type: Sequelize.STRING,
+    },
+    itemID: {
+      type: Sequelize.STRING,
+    },
+    price: {
+      type: Sequelize.DECIMAL,
+    },
+    star: {
+      type: Sequelize.STRING,
+    },
+    text: {
+      type: Sequelize.STRING,
+    },
+    title: {
+      type: Sequelize.STRING,
+    },
+    url: {
+      type: Sequelize.STRING,
+    },
+  },
+  {
+    tableName: "cart",
+    timestamps: false,
+  }
+);
+
+const Order = sequelize.define(
+  "orders",
+  {
+    userID: {
+      type: Sequelize.INTEGER,
+    },
+    orderID: {
+      type: Sequelize.INTEGER,
+    },
+    address: {
+      type: Sequelize.STRING,
+    },
+    total: {
+      type: Sequelize.DECIMAL,
+    },
+    itemId: {
+      type: Sequelize.INTEGER,
+    },
+    quantity: {
+      type: Sequelize.INTEGER,
+    },
+  },
+  {
+    tableName: "orders",
+    timestamps: false,
+  }
+);
+
 let rawData = fs.readFileSync("data.json"); // read file from given path
 let parsedData = JSON.parse(rawData); // parse rawData (which is a string into a JSON object)
 app.use(cors()); // initialize cors plugin on express
@@ -246,7 +323,7 @@ app.get("/api/v2/users/:userId/addresses", function (req, res) {
     });
 });
 
-app.put("/api/v2/users/:id/address", function (req, res) {
+app.put("/api/v2/users/:id/updateAddress", function (req, res) {
   const id = req.params.id;
   const fullName = req.body.fullName;
   const contactNo = req.body.contactNo;
@@ -287,33 +364,25 @@ app.put("/api/v2/users/:id/address", function (req, res) {
     });
 });
 
-app.delete("/api/v2/users/:id/delAddress", function (req, res) {
+app.delete("/api/v2/users/:id/deleteAddress/:addressId", function (req, res) {
   const id = req.params.id;
-  Address.findByPk(id)
-    .then((address) => {
-      if (address) {
-        address
-          .destroy()
-          .then(() => {
-            res.send({
-              success: true,
-              message: "Address deleted successfully",
-            });
-          })
-          .catch((error) => {
-            console.log("Error deleting user Address:", error);
-            res.send({
-              success: false,
-              message: "Failed to delete user Address.",
-            });
-          });
+  const addressId = req.params.addressId;
+  Address.destroy({ where: { id: addressId, userID: id } })
+    .then((numRowsDeleted) => {
+      if (numRowsDeleted === 1) {
+        res.send({
+          success: true,
+          message: "Address deleted successfully",
+        });
       } else {
         res.send({ success: false, message: "Address not found" });
       }
     })
     .catch((error) => {
-      console.log("Error finding address:", error);
-      res.send({ success: false, message: "Failed to find address" });
+      console.log("Error deleting address:", error);
+      res
+        .status(500)
+        .send({ success: false, message: "Failed to delete address" });
     });
 });
 
@@ -429,13 +498,41 @@ app.get("/getProduct", function (req, res) {
 
 app.get("/keyword", function (req, res) {
   fs.readFile(
-    __dirname + "/" + "all-products.json",
+    __dirname + "/" + "all-products.js",
     "utf8",
     function (err, data) {
       data = JSON.parse(data);
       console.log(data.tour);
       const result = data.tour.filter(function (obj) {
         return obj["category"]
+          .toLowerCase()
+          .includes(req.query.i.toLowerCase());
+      });
+      console.log(result);
+      res.send(result); // you can also use res.send()
+    }
+  );
+});
+app.get("/getSliderImages", function (req, res) {
+  fs.readFile(
+    __dirname + "/" + "slider.json",
+    "utf8",
+    function (err, data) {
+      console.log(data);
+      res.send(data); // you can also use res.send()
+    }
+  );
+});
+
+app.get("/keyword", function (req, res) {
+  fs.readFile(
+    __dirname + "/" + "slider.js",
+    "utf8",
+    function (err, data) {
+      data = JSON.parse(data);
+      console.log(data.tour);
+      const result = data.tour.filter(function (obj) {
+        return obj["id"]
           .toLowerCase()
           .includes(req.query.i.toLowerCase());
       });
@@ -466,6 +563,16 @@ app.get("/store/item-page/:pageName", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.get("/items", async (req, res) => {
+  try {
+    const items = await ItemPage.findAll();
+    res.json(items);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong" });
   }
 });
 
@@ -529,6 +636,78 @@ app.post("/subscribe", async (req, res) => {
       }
     });
 });
+
+app.post("/api/cart", async (req, res) => {
+  try {
+    const items = req.body.items; // array of items
+    const userID = req.body.userID;
+
+    // Retrieve items from database that belong to the user with the given userID
+    const existingItems = await CartItems.findAll({
+      where: {
+        userID: userID,
+      },
+    });
+
+    // Map over the array of items and create a new array of objects to be inserted into the database
+    const cartItems = items.map((item) => {
+      // Check if the item already exists in the database
+      const exists = existingItems.some(
+        (existingItem) => existingItem.itemID === item.id
+      );
+
+      // If the item already exists in the database, skip it
+      if (exists) {
+        return null;
+      }
+
+      return {
+        cartQuantity: item.cartQuantity,
+        itemID: item.id, // Use the 'id' property as the 'itemID'
+        price: item.price,
+        star: item.star,
+        text: item.text,
+        title: item.title,
+        url: item.url,
+        userID: userID,
+      };
+    });
+
+    // Filter out any null values
+    const filteredCartItems = cartItems.filter((item) => item !== null);
+
+    // Insert the array of objects into the database
+    await CartItems.bulkCreate(filteredCartItems);
+
+    res.status(200).send("Items successfully saved to the database");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error saving items to the database");
+  }
+});
+
+// app.post("/api/orders", async (req, res) => {
+//   const { userID, orderID, items, address, total } = req.body;
+
+//   try {
+//     // Create new orders for each item and save them to the database
+//     for (const item of items) {
+//       const order = await Order.create({
+//         userID,
+//         orderID,
+//         address,
+//         total,
+//         itemId: item.id,
+//         quantity: item.quantity,
+//       });
+//     }
+
+//     res.json({ message: "Order saved successfully" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
 const runApp = async () => {
   try {

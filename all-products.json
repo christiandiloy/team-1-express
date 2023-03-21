@@ -5,6 +5,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/1-2101121420050-L.png",
       "title": "Aegis Boost LE Bonus Kit",
+      "page_name":"AegisBonusKit",
       "text": "More Flavors Await.",
       "star": "31",
       "rsp": "4532.21",
@@ -15,6 +16,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/1-201209162603924.png",
       "title": "Aegis Max",
+      "page_name":"AegisMax",
       "text": "Salute to Aegis 100W",
       "star": "55",
       "rsp": "4532.21",
@@ -25,6 +27,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-1fc-list.png",
       "title": "Aegis 1FC",
+      "page_name":"Aegis1FCPodKit",
       "text": "Worlds First Fast Charging Pen",
       "star": "41",
       "rsp": "4532.21",
@@ -35,6 +38,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-boost-pro-list.png",
       "title": "Aegis Boost Pro",
+      "page_name":"AegisBoostPro",
       "text": "Four in Full Will.",
       "star": "13",
       "rsp": "4532.21",
@@ -45,6 +49,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-h45-list.png",
       "title": "Geekvape H45",
+      "page_name":"GVH45",
       "text": "New Tri-proof. New HERO",
       "star": "82",
       "rsp": "5532.21",
@@ -55,6 +60,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-hero-list.png",
       "title": "Aegis Hero",
+      "page_name":"AegisHero",
       "text": "Top Airflow Top Performance",
       "star": "13",
       "rsp": "3532.21",
@@ -65,6 +71,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-legend2-list.png",
       "title": "Geekvape Legend200",
+      "page_name":"GVLegend200",
       "text": "Legend Leaps,Aegis Legend 2.",
       "star": "26",
       "rsp": "3532.21",
@@ -75,6 +82,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-nano-list.png",
       "title": "Geekvape Nano",
+      "page_name":"GVNano",
       "text": "Bravo in Nano.",
       "star": "64",
       "rsp": "4532.21",
@@ -85,6 +93,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-one-list.png",
       "title": "Geekvape One",
+      "page_name":"GVOne",
       "text": "First Vape Pen with New Aegis Design.",
       "star": "23",
       "rsp": "3532.21",
@@ -94,7 +103,8 @@
       "id": 10,
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/aegis-x-zeus-sub-ohm-list.png",
-      "title": "Aegis X Geekvape Z Kit",
+      "title": "Aegis X Geekvape Z Sub-ohm Kit",
+      "page_name":"AegisXGVZKit",
       "text": "The Best Mod Meets the Best Tank",
       "star": "49",
       "rsp": "4532.21",
@@ -105,6 +115,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/ap2-list.png",
       "title": "Geekvape AP2",
+      "page_name":"GVAP2",
       "text": "New Tri-proof. New Aegis Pod.",
       "star": "24",
       "rsp": "4532.21",
@@ -115,6 +126,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/b60-list.png",
       "title": "Geekvape B60",
+      "page_name":"GVB60",
       "text": "New Tri-proof. Empower Boost.",
       "star": "21",
       "rsp": "5532.21",
@@ -125,6 +137,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/b100-list.png",
       "title": "Geekvape B100 21700 Kit",
+      "page_name":"GVB10021700Kit",
       "text": "Pro 4 Pro.",
       "star": "21",
       "rsp": "5532.21",
@@ -135,6 +148,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/b102-list.png",
       "title": "Geekvape B100 Kit",
+      "page_name":"GVB100Kit",
       "text": "New Tri-Proof. New Boost Pro.",
       "star": "23",
       "rsp": "4532.21",
@@ -145,6 +159,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/e100-list.png",
       "title": "Geekvape E100 & E100i Kit",
+      "page_name":"GVE100E100iKit",
       "text": "Once Try, Forever Eteno.",
       "star": "11",
       "rsp": "3232.21",
@@ -155,6 +170,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/l200-list.png",
       "title": "GEEKVAPE L200 Classic",
+      "page_name":"GVL200Classic",
       "text": "New Legend 2. New Power Beast.",
       "star": "22",
       "rsp": "6432.21",
@@ -165,6 +181,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/m100-list.png",
       "title": "Geekvape M100",
+      "page_name":"GVM100Kit",
       "text": "New tri-proof, now in mini.",
       "star": "22",
       "rsp": "6432.21",
@@ -175,6 +192,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/max100-list.png",
       "title": "Geekvape Max100 Kit",
+      "page_name":"#",
       "text": "New Tri-proof, New Aegis Max.",
       "star": "22",
       "rsp": "6432.21",
@@ -185,6 +203,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/s100-list.png",
       "title": "Geekvape S100",
+      "page_name":"GVS100",
       "text": "New tri-proof has the Solo.",
       "star": "22",
       "rsp": "4532.21",
@@ -195,6 +214,7 @@
       "category": "Aegis",
       "url": "/assets/images/aegis-cards/t200-list.png",
       "title": "Geekvape T200",
+      "page_name":"GVT200",
       "text": "The Smartest Touch Vape Ever.",
       "star": "22",
       "rsp": "6532.21",
@@ -205,6 +225,7 @@
       "category": "Coil",
       "url": "/assets/images/coils/M-series.png",
       "title": "Geekvape M series coil",
+      "page_name":"GVMCoil",
       "text": "Resistance:",
       "description": "0.2 Ohms Triple, 70~85W",
       "star": "22",
@@ -215,6 +236,7 @@
       "category": "Coil",
       "url": "/assets/images/coils/Supermesh.png",
       "title": "New Supermesh coil",
+      "page_name":"SuperMeshCoil",
       "text": "Resistance:",
       "description": "0.4 Ohms, 50~60W; 0.2 Ohms, 60~70W",
       "star": "22",
@@ -225,6 +247,7 @@
       "category": "Coil",
       "url": "/assets/images/coils/B-series.png",
       "title": "Geekvape B series coil",
+      "page_name":"GVBCoil",
       "text": "Resistance:",
       "description": "0.2 Ohms, 50~58W",
       "star": "22",
@@ -235,6 +258,7 @@
       "category": "Coil",
       "url": "/assets/images/coils/Z-series.png",
       "title": "Geekvape Z series coil",
+      "page_name":"GVZCoil",
       "text": "Resistance:",
       "description": "0.25 Ohms Dual, 45~57W; 0.15 Ohms, 80~90W, 0.4 Ohms, 50~60W; 0.2 Ohms, 70~80W",
       "star": "22",
@@ -245,6 +269,7 @@
       "category": "Coil",
       "url": "/assets/images/coils/P-series.png",
       "title": "Geekvape P series coil",
+      "page_name":"GVPCoil",
       "text": "Resistance:",
       "description": "0.2 Ohms,60~70W; 0.4 Ohms,50~60W, 0.5 Ohms ,40~50W",
       "star": "22",
@@ -255,6 +280,7 @@
       "category": "Coil",
       "url": "/assets/images/coils/G-series.png",
       "title": "Geekvape G series coil",
+      "page_name":"GVGCoil",
       "text": "Resistance:",
       "description": "0.6 Ohms,13~18W; 0.8 Ohms ,12~15W, 1.0 Ohms ,10~12W; 1.2 Ohms,9.5~11.5W, 1.8 Ohms,7~9W",
       "star": "22",
@@ -265,6 +291,7 @@
       "category": "Geekvape U",
       "url": "/assets/images/geekvape-u-cards/df-u-list.png",
       "title": "DIGI-U POD KIT",
+      "page_name":"DigiUKit",
       "text": "Once for All. Digiflavor for U.",
       "star": "22",
       "price": "5378.12"
@@ -274,6 +301,7 @@
       "category": "Geekvape U",
       "url": "/assets/images/geekvape-u-cards/gv-au-list.png",
       "title": "Geekvape AU",
+      "page_name":"GVAu",
       "text": "Once for All. Aegis for U.",
       "star": "22",
       "price": "5378.12"
@@ -283,24 +311,27 @@
       "category": "Geekvape U",
       "url": "/assets/images/geekvape-u-cards/ob-u-list.png",
       "title": "Obelisk U",
+      "page_name":"ObeliskU",
       "text": "Once for All. Obelisk for U.",
-      "star": "22",
-      "price": "5378.12"
-    },
-    {
-      "id": 30,
-      "category": "Geekvape U",
-      "url": "/assets/images/geekvape-u-cards/sonder-list.png",
-      "title": "Aegis Boost Pro",
-      "text": "Four in Full Will.",
       "star": "22",
       "price": "5378.12"
     },
     {
       "id": 31,
       "category": "Geekvape U",
+      "url": "/assets/images/geekvape-u-cards/sonder-list.png",
+      "title": "Aegis Boost Pro",
+      "page_name":"#",
+      "text": "Four in Full Will.",
+      "star": "22",
+      "price": "5378.12"
+    },
+    {
+      "id": 30,
+      "category": "Geekvape U",
       "url": "/assets/images/geekvape-u-cards/wenax-u-list.png",
       "title": "Wenax U",
+      "page_name":"WenaxU",
       "text": "Once for All. Wenax for U.",
       "star": "22",
       "price": "5378.12"
@@ -310,6 +341,7 @@
       "category": "Geekvape Z",
       "url": "/assets/images/geekvape-z-cards/gv-au-list.png",
       "title": "GEEKVAPE Z Sub-ohm SE Tank",
+      "page_name":"GVZSETank",
       "text": "More Durable Than Ever.",
       "star": "22",
       "price": "5378.12"
@@ -319,6 +351,7 @@
       "category": "Geekvape Z",
       "url": "/assets/images/geekvape-z-cards/z100c-list2.png",
       "title": "Geekvape Z100C DNA Kit",
+      "page_name":"GVZ100C",
       "text": "Perfect Flavor Replays.",
       "star": "22",
       "price": "5378.12"
@@ -328,6 +361,7 @@
       "category": "Geekvape Z",
       "url": "/assets/images/geekvape-z-cards/z50-list.png",
       "title": "Geekvape Z50",
+      "page_name":"GVZ50",
       "text": "Packs in Power.",
       "star": "22",
       "price": "5378.12"
@@ -337,6 +371,7 @@
       "category": "Geekvape Z",
       "url": "/assets/images/geekvape-z-cards/zmax-list.png",
       "title": "Geekvape Z Max Tank",
+      "page_name":"GVZMaxTank",
       "text": "Clouds Favor Max.",
       "star": "22",
       "price": "5378.12"
@@ -346,6 +381,7 @@
       "category": "Geekvape Z",
       "url": "/assets/images/geekvape-z-cards/zeus-nano2-list.png",
       "title": "Geekvape Z Nano 2 Tank",
+      "page_name":"GVZNano2Tank",
       "text": "The Most Reliable Leakproof Nano Tank",
       "star": "22",
       "price": "5378.12"
@@ -355,6 +391,7 @@
       "category": "Geekvape Z",
       "url": "/assets/images/geekvape-z-cards/zeus-x-mesh-list.png",
       "title": "Geekvape ZX II RTA",
+      "page_name":"GVZXIIRTA",
       "text": "Flavor Enhanced, Again",
       "star": "22",
       "price": "5378.12"
@@ -364,6 +401,7 @@
       "category": "Geekvape Z",
       "url": "/assets/images/geekvape-z-cards/zeus-sub-ohm-list.png",
       "title": "Geekvape Z Sub-ohm Tank",
+      "page_name":"GVZTank",
       "text": "Leakproof Sub-ohm Tank",
       "star": "22",
       "price": "5378.12"
@@ -373,6 +411,7 @@
       "category": "Obelisk",
       "url": "/assets/images/geekvape-z-cards/zeus-x-list.png",
       "title": "Geekvape ZX RTA",
+      "page_name":"#",
       "text": "Ultimate Leakproof RTA",
       "star": "22",
       "price": "5378.12"
@@ -382,6 +421,7 @@
       "category": "Obelisk",
       "url": "/assets/images/obelisk-cards/obelisk-65-list.png",
       "title": "Obelisk 65",
+      "page_name":"Obelisk65",
       "text": "Tech Chic in Palm",
       "star": "22",
       "price": "5378.12"
@@ -391,6 +431,7 @@
       "category": "Obelisk",
       "url": "/assets/images/obelisk-cards/obelisk-65fc-list.png",
       "title": "Obelisk 65FC",
+      "page_name":"Obelisk65FC",
       "text": "First Fast Charging Pod Mod",
       "star": "22",
       "price": "5378.12"
@@ -400,6 +441,7 @@
       "category": "Obelisk",
       "url": "/assets/images/obelisk-cards/obelisk-c-list.png",
       "title": "Obelisk C Tank",
+      "page_name":"ObeliskCTank",
       "text": "Tri-boosting Flavor.",
       "star": "22",
       "price": "5378.12"
@@ -409,6 +451,7 @@
       "category": "Obelisk",
       "url": "/assets/images/obelisk-cards/obelisk-200-list.png",
       "title": "Obelisk 200 Kit",
+      "page_name":"Obelisk200Kit",
       "text": "200 in the Smallest.",
       "star": "22",
       "price": "5378.12"
@@ -418,6 +461,7 @@
       "category": "Obelisk",
       "url": "/assets/images/obelisk-cards/obelisk-tank-list.png",
       "title": "Obelisk Tank",
+      "page_name":"ObeliskTank",
       "text": "Slide to Safety.",
       "star": "22",
       "price": "5378.12"
@@ -427,6 +471,7 @@
       "category": "Obelisk",
       "url": "/assets/images/obelisk-cards/1-2104201623293V.png",
       "title": "Obelisk 60",
+      "page_name":"Obelisk60",
       "text": "Hold and Behold",
       "star": "22",
       "price": "5378.12"
@@ -436,6 +481,7 @@
       "category": "Obelisk",
       "url": "/assets/images/obelisk-cards/1-21032009564NG.png",
       "title": "Obelisk 120 FC",
+      "page_name":"Obelisk120FC",
       "text": "The Worlds First Vape with Safe Fast Charging",
       "star": "22",
       "price": "5378.12"
@@ -445,6 +491,7 @@
       "category": "Wenax",
       "url": "/assets/images/wenax/wenax-u-list.png",
       "title": "Wenax U",
+      "page_name":"#",
       "text": "Once for All. Wenax for U.",
       "star": "22",
       "price": "5378.12"
@@ -454,6 +501,7 @@
       "category": "Wenax",
       "url": "/assets/images/wenax/wenax-h1-list.png",
       "title": "Wenax H1",
+      "page_name":"WenaxH1",
       "text": "Enduring does it all.",
       "star": "22",
       "price": "5378.12"
@@ -463,6 +511,7 @@
       "category": "Wenax",
       "url": "/assets/images/wenax/k1se-list.png",
       "title": "Wenax K1 SE",
+      "page_name":"WenaxK1SE",
       "text": "Light Air, Like Air.",
       "star": "22",
       "price": "5378.12"
@@ -472,6 +521,7 @@
       "category": "Wenax",
       "url": "/assets/images/wenax/wenax-m1-list.png",
       "title": "Wenax M1",
+      "page_name":"WenaxM1",
       "text": "Air within Reach.",
       "star": "22",
       "price": "5378.12"
@@ -481,6 +531,7 @@
       "category": "Wenax",
       "url": "/assets/images/wenax/wenax-sc-list.png",
       "title": "Wenax S-C",
+      "page_name":"WenaxSC",
       "text": "Shining. Speedy. Smooth.",
       "star": "22",
       "price": "5378.12"
@@ -490,6 +541,7 @@
       "category": "Wenax",
       "url": "/assets/images/wenax/wenax-k1-list.png",
       "title": "Wenax K1",
+      "page_name":"WenaxK1",
       "text": "Upon the Air.",
       "star": "22",
       "price": "5378.12"
@@ -499,6 +551,7 @@
       "category": "Wenax",
       "url": "/assets/images/wenax/wenax-c1-list.png",
       "title": "Wenax C1",
+      "page_name":"WenaxC1",
       "text": "The Entire Grasp.",
       "star": "22",
       "price": "5378.12"
@@ -508,6 +561,7 @@
       "category": "Wenax",
       "url": "/assets/images/wenax/wenax-list.png",
       "title": "Wenax Stylus",
+      "page_name":"WenaxStylus",
       "text": "Color your vape. Rich your flavor.",
       "star": "22",
       "price": "5378.12"
@@ -516,7 +570,8 @@
       "id": 55,
       "category": "BoxMods",
       "url": "/assets/images/box-mods/L200.jpg",
-      "title": "Geekvape L200 New",
+      "title": "Geekvape L200 New Edition",
+      "page_name":"GVL200NE",
       "text": "3,475.29",
       "star": "163",
       "price": "5378.12"
@@ -526,6 +581,7 @@
       "category": "BoxMods",
       "url": "/assets/images/box-mods/Max100.jpg",
       "title": "Geekvape Max100",
+      "page_name":"GVMax100",
       "text": "3,241.01",
       "star": "123",
       "price": "5378.12"
@@ -535,6 +591,7 @@
       "category": "BoxMods",
       "url": "/assets/images/box-mods/T200.jpg",
       "title": "Geekvape L200",
+      "page_name":"GVLegend2Mod",
       "text": "3,463.04",
       "star": "133",
       "price": "5378.12"
@@ -544,6 +601,7 @@
       "category": "BoxMods",
       "url": "/assets/images/box-mods/L200-red.jpg",
       "title": "Geekvape T200 Touch",
+      "page_name":"GVT200BoxMod",
       "text": "4,424.30",
       "star": "31",
       "price": "5378.12"
@@ -553,6 +611,7 @@
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/geekvape_aegis_boost_pro.jpg",
       "title": "GeekVape Aegis Boost Pro",
+      "page_name":"GVAegisBoostPro",
       "star": "16",
       "text": "443.29",
       "price": "5378.12"
@@ -562,6 +621,7 @@
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/GeekvapeAegisNANOKit.jpg",
       "title": "Geekvape Aegis Nano",
+      "page_name":"GVAegisNano",
       "star": "12",
       "text": "399.01",
       "price": "5378.12"
@@ -571,6 +631,7 @@
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/Geekvapeonepodkit.jpg",
       "title": "Geekvape Aegis ONE Pod",
+      "page_name":"GVAegisOnePod",
       "star": "13",
       "text": "632.04",
       "price": "5378.12"
@@ -580,6 +641,7 @@
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/GeekvapeH45PodKit.jpg",
       "title": "Geekvape H45 (Hero 2)",
+      "page_name":"GVH45Hero2",
       "star": "11",
       "text": "665.30",
       "price": "5378.12"
@@ -589,6 +651,7 @@
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/aegis-boost.jpg",
       "title": "Geekvape Aegis Boost",
+      "page_name":"GVAegisBoost",
       "star": "16",
       "text": "443.29",
       "price": "5378.12"
@@ -598,6 +661,7 @@
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/GeekvapeAegisBoost2Kit.jpg",
       "title": "Geekvape B60 (Aegis Boost 2)",
+      "page_name":"GVB60AegisBoost2",
       "star": "12",
       "text": "399.01",
       "price": "5378.12"
@@ -606,7 +670,8 @@
       "id": 65,
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/geek_vape_wenax_h1_cartridge_1_5.jpg",
-      "title": "Geekvape WENAX Cart",
+      "title": "Geekvape WENAX H1 Cartridge",
+      "page_name":"GVWenaxH1",
       "star": "13",
       "text": "632.04",
       "price": "5378.12"
@@ -616,6 +681,7 @@
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/geek_vape_u_cartridge_1.jpg",
       "title": "Geekvape U Cartridge Pod",
+      "page_name":"#",
       "star": "11",
       "text": "665.30",
       "price": "5378.12"
@@ -625,6 +691,7 @@
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/geekvape_aegis_boost_pro.jpg",
       "title": "GeekVape Aegis Boost Pro",
+      "page_name":"#",
       "star": "16",
       "text": "443.29",
       "price": "5378.12"
@@ -634,6 +701,7 @@
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/GeekvapeAegisNANOKit.jpg",
       "title": "Geekvape Aegis Nano",
+      "page_name":"#",
       "star": "12",
       "text": "399.01",
       "price": "5378.12"
@@ -643,6 +711,7 @@
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/Geekvapeonepodkit.jpg",
       "title": "Geekvape Aegis ONE Pod",
+      "page_name":"#",
       "star": "13",
       "text": "632.04",
       "price": "5378.12"
@@ -652,6 +721,7 @@
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/GeekvapeH45PodKit.jpg",
       "title": "Geekvape H45 (Hero 2)",
+      "page_name":"#",
       "star": "11",
       "text": "665.30",
       "price": "5378.12"
@@ -661,6 +731,7 @@
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/aegis-boost.jpg",
       "title": "Geekvape Aegis Boost",
+      "page_name":"#",
       "star": "16",
       "text": "443.29",
       "price": "5378.12"
@@ -669,7 +740,8 @@
       "id": 72,
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/GeekvapeAegisBoost2Kit.jpg",
-      "title": "Geekvape B60 (Boost 2)",
+      "title": "Geekvape B60 (Aegis Boost 2)",
+      "page_name":"#",
       "star": "12",
       "text": "399.01",
       "price": "5378.12"
@@ -678,7 +750,8 @@
       "id": 73,
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/geek_vape_wenax_h1_cartridge_1_5.jpg",
-      "title": "Geekvape WENAX Cart",
+      "title": "Geekvape WENAX H1 Cartridge",
+      "page_name":"#",
       "star": "13",
       "text": "632.04",
       "price": "5378.12"
@@ -688,6 +761,7 @@
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/geek_vape_u_cartridge_1.jpg",
       "title": "Geekvape U Cartridge Pod",
+      "page_name":"#",
       "star": "11",
       "text": "665.30",
       "price": "5378.12"
@@ -697,6 +771,7 @@
       "category": "BoxModKits",
       "url": "/assets/images/box-mod-kits/GEEKVAPE-L200.jpg",
       "title": "Geekvape L200",
+      "page_name":"#",
       "star": "234",
       "text": "4691.54",
       "price": "1234.56"
@@ -706,6 +781,7 @@
       "category": "BoxModKits",
       "url": "/assets/images/box-mod-kits/AegisX-ZSub.jpg",
       "title": "Geekvape Aegis X",
+      "page_name":"#",
       "star": "129",
       "text": "5338.84",
       "price": "1234.56"
@@ -715,6 +791,7 @@
       "category": "BoxModKits",
       "url": "/assets/images/box-mod-kits/GeekvapeT200Kit.jpg",
       "title": "Geekvape T200",
+      "page_name":"#",
       "star": "66",
       "text": "5687.38",
       "price": "1234.56"
@@ -724,6 +801,7 @@
       "category": "BoxModKits",
       "url": "/assets/images/box-mod-kits/GEEKVAPE-MAX100.jpg",
       "title": "Geekvape Max100",
+      "page_name":"#",
       "star": "77",
       "text": "4507.86",
       "price": "1234.56"
@@ -733,6 +811,7 @@
       "category": "BoxModKits",
       "url": "/assets/images/box-mod-kits/AegisSoloKit.jpg",
       "title": "Geekvape S100",
+      "page_name":"#",
       "star": "28",
       "text": "4575.36",
       "price": "1234.56"
@@ -742,6 +821,7 @@
       "category": "BoxModKits",
       "url": "/assets/images/box-mod-kits/GEEKVAPE-E100.jpg",
       "title": "Geekvape E100",
+      "page_name":"#",
       "star": "28",
       "text": "2959.36",
       "price": "1234.56"
@@ -751,6 +831,7 @@
       "category": "BoxModKits",
       "url": "/assets/images/box-mod-kits/Legend-2-Classic-T200.jpg",
       "title": "Geekvape L200 Classic",
+      "page_name":"#",
       "star": "49",
       "text": "4929.36",
       "price": "1234.56"
@@ -760,6 +841,7 @@
       "category": "BoxModKits",
       "url": "/assets/images/box-mod-kits/GeekvapeAegisMini2Kit.jpg",
       "title": "Geekvape M100 Kit",
+      "page_name":"#",
       "star": "45",
       "text": "4912.84",
       "price": "1234.56"
@@ -769,6 +851,7 @@
       "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/Black.jpg",
       "title": "Geekvape Obelisk U Pod",
+      "page_name":"#",
       "star": "6",
       "text": "1105.94",
       "price": "1234.56"
@@ -778,6 +861,7 @@
       "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/BlackBlue.jpg",
       "title": "Geekvape Z100C DNA Pod",
+      "page_name":"#",
       "star": "14",
       "text": "9248.63",
       "price": "1234.56"
@@ -787,6 +871,7 @@
       "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/BlueRed.jpg",
       "title": "Geekvape B100 Kit",
+      "page_name":"#",
       "star": "8",
       "text": "2793.63",
       "price": "1234.56"
@@ -796,6 +881,7 @@
       "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/GeekvapeSonderUKit.jpg",
       "title": "Geekvape Sonder U Pod",
+      "page_name":"#",
       "star": "44",
       "text": "663.90",
       "price": "1234.56"
@@ -805,6 +891,7 @@
       "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/Gunmetal.jpg",
       "title": "Geekvape AU Pod kit",
+      "page_name":"#",
       "star": "12",
       "text": "1466.90",
       "price": "1234.56"
@@ -814,6 +901,7 @@
       "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/H45_RTE.jpg",
       "title": "Geekvape H45 Pod",
+      "page_name":"#",
       "star": "67",
       "text": "2433.90",
       "price": "1234.56"
@@ -824,6 +912,7 @@
       "price": "1234.56",
       "url": "/assets/images/pod-kits/wenax.jpg",
       "title": "Geekvape Wenax U Pod",
+      "page_name":"#",
       "star": "7",
       "text": "1266.90"
     },
@@ -832,6 +921,7 @@
       "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/wenax-slim.jpg",
       "title": "Geekvape Wenax M1 Pod Kit",
+      "page_name":"#",
       "star": "38",
       "text": "939.90",
       "price": "1234.56"

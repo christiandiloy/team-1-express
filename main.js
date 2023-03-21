@@ -76,6 +76,69 @@ const Address = sequelize.define(
     timestamps: false,
   }
 );
+
+const CartItems = sequelize.define(
+  "cartItems",
+  {
+    userID: {
+      type: Sequelize.STRING,
+    },
+    cartQuantity: {
+      type: Sequelize.STRING,
+    },
+    itemID: {
+      type: Sequelize.STRING,
+    },
+    price: {
+      type: Sequelize.DECIMAL,
+    },
+    star: {
+      type: Sequelize.STRING,
+    },
+    text: {
+      type: Sequelize.STRING,
+    },
+    title: {
+      type: Sequelize.STRING,
+    },
+    url: {
+      type: Sequelize.STRING,
+    },
+  },
+  {
+    tableName: "cart",
+    timestamps: false,
+  }
+);
+
+const Order = sequelize.define(
+  "orders",
+  {
+    userID: {
+      type: Sequelize.INTEGER,
+    },
+    orderID: {
+      type: Sequelize.INTEGER,
+    },
+    address: {
+      type: Sequelize.STRING,
+    },
+    total: {
+      type: Sequelize.DECIMAL,
+    },
+    itemId: {
+      type: Sequelize.INTEGER,
+    },
+    quantity: {
+      type: Sequelize.INTEGER,
+    },
+  },
+  {
+    tableName: "orders",
+    timestamps: false,
+  }
+);
+
 let rawData = fs.readFileSync("data.json"); // read file from given path
 let parsedData = JSON.parse(rawData); // parse rawData (which is a string into a JSON object)
 app.use(cors()); // initialize cors plugin on express
@@ -108,7 +171,12 @@ app.post("/api/v2/login", function (request, response) {
       }
     })
     .then((result) => {
-      if (result.password === request.body.password) {
+      const checkedPassword = bcrypt.compareSync(
+        request.body.password,
+        result.password
+      );
+
+      if (checkedPassword) {
         retVal.success = true;
         delete result.password;
         retVal.userData = result;
@@ -124,7 +192,6 @@ app.post("/api/v2/login", function (request, response) {
     })
     .catch((error) => {
       console.log("error: ", error);
-      response.send(retVal);
     });
 });
 
@@ -219,6 +286,88 @@ app.post("/api/v2/address", function (request, response) {
     })
     .catch((error) => {
       console.log("error: ", error);
+    });
+});
+
+app.get("/api/v2/users/:userId/addresses", function (req, res) {
+  const userId = req.params.userId;
+  Address.findAll({
+    where: {
+      userId: userId,
+    },
+  })
+    .then((addresses) => {
+      res.send({
+        success: true,
+        data: addresses,
+      });
+    })
+    .catch((error) => {
+      console.log("Error finding addresses:", error);
+      res.send({ success: false, message: "Failed to find addresses" });
+    });
+});
+
+app.put("/api/v2/users/:id/updateAddress", function (req, res) {
+  const id = req.params.id;
+  const fullName = req.body.fullName;
+  const contactNo = req.body.contactNo;
+  const place = req.body.place;
+  const postalCode = req.body.postalCode;
+  const houseNo = req.body.houseNo;
+  Address.findByPk(id)
+    .then((address) => {
+      if (address) {
+        address
+          .update({
+            full_name: fullName,
+            contact_no: contactNo,
+            place: place,
+            postal_code: postalCode,
+            house_no: houseNo,
+          })
+          .then(() => {
+            res.send({
+              success: true,
+              message: "Address updated successfully",
+            });
+          })
+          .catch((error) => {
+            console.log("Error updating user Address:", error);
+            res.send({
+              success: false,
+              message: "Failed to update user Address.",
+            });
+          });
+      } else {
+        res.send({ success: false, message: "Address not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error finding address:", error);
+      res.send({ success: false, message: "Failed to find address" });
+    });
+});
+
+app.delete("/api/v2/users/:id/deleteAddress/:addressId", function (req, res) {
+  const id = req.params.id;
+  const addressId = req.params.addressId;
+  Address.destroy({ where: { id: addressId, userID: id } })
+    .then((numRowsDeleted) => {
+      if (numRowsDeleted === 1) {
+        res.send({
+          success: true,
+          message: "Address deleted successfully",
+        });
+      } else {
+        res.send({ success: false, message: "Address not found" });
+      }
+    })
+    .catch((error) => {
+      console.log("Error deleting address:", error);
+      res
+        .status(500)
+        .send({ success: false, message: "Failed to delete address" });
     });
 });
 
@@ -471,6 +620,75 @@ app.post("/subscribe", async (req, res) => {
         console.log("Message sent: %s", info.messageId);
       }
     });
+});
+
+app.post("/api/cart", async (req, res) => {
+  try {
+    const items = req.body.items; // array of items
+
+    // Map over the array of items and create a new array of objects to be inserted into the database
+    const cartItems = items.map((item) => {
+      return {
+        userID: item.userID,
+        cartQuantity: item.cartQuantity,
+        itemID: item.itemID,
+        price: item.price,
+        star: item.star,
+        text: item.text,
+        title: item.title,
+        url: item.url,
+      };
+    });
+
+    // Insert the array of objects into the database
+    await CartItems.bulkCreate(cartItems);
+
+    res.status(200).send("Items successfully saved to the database");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error saving items to the database");
+  }
+});
+
+// app.post("/api/orders", async (req, res) => {
+//   try {
+//     // create a new order
+//     const order = await Order.create({
+//       userID: req.body.userID,
+//       orderID: req.body.orderID,
+//       itemID: req.body.itemID,
+//       quantity: req.body.quantity,
+//       address: req.body.address,
+//       total: req.body.total,
+//     });
+
+//     res.status(201).json(order);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+app.post("/api/orders", async (req, res) => {
+  const { userID, orderID, items, address, total } = req.body;
+
+  try {
+    // Create new orders for each item and save them to the database
+    for (const item of items) {
+      const order = await Order.create({
+        userID,
+        orderID,
+        address,
+        total,
+        itemId: item.id,
+        quantity: item.quantity,
+      });
+    }
+
+    res.json({ message: "Order saved successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 const runApp = async () => {

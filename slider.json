@@ -1,0 +1,28 @@
+{
+    "images": [
+        {
+            "id": 1,
+            "img": "/assets/images/new.jpg",
+            "alt": "new"
+        },
+        {
+            "id": 2,
+            "img": "/assets/images/b100.jpg",
+            "alt": "b100"
+        },
+        {
+            "id": 3,
+            "img": "/assets/images/e100i.jpg",
+            "alt": "e100i"
+        },
+        {
+            "id": 4,
+            "img": "/assets/images/pod.jpg",
+            "alt": "pods"
+        },
+        {
+            "id": 5,
+            "img": "/assets/images/wenax.jpg",
+            "alt": "wenax"
+        }
+    ]}

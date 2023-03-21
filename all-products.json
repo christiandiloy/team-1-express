@@ -1,4 +1,5 @@
-const productArray = [
+{
+  "products": [
     {
       "id": 1,
       "category": "Aegis",
@@ -6,6 +7,7 @@ const productArray = [
       "title": "Aegis Boost LE Bonus Kit",
       "text": "More Flavors Await.",
       "star": "31",
+      "rsp": "4532.21",
       "price": "3406.32"
     },
     {
@@ -15,6 +17,7 @@ const productArray = [
       "title": "Aegis Max",
       "text": "Salute to Aegis 100W",
       "star": "55",
+      "rsp": "4532.21",
       "price": "3106.12"
     },
     {
@@ -24,6 +27,7 @@ const productArray = [
       "title": "Aegis 1FC",
       "text": "Worlds First Fast Charging Pen",
       "star": "41",
+      "rsp": "4532.21",
       "price": "3312.72"
     },
     {
@@ -33,6 +37,7 @@ const productArray = [
       "title": "Aegis Boost Pro",
       "text": "Four in Full Will.",
       "star": "13",
+      "rsp": "4532.21",
       "price": "3032.25"
     },
     {
@@ -42,6 +47,7 @@ const productArray = [
       "title": "Geekvape H45",
       "text": "New Tri-proof. New HERO",
       "star": "82",
+      "rsp": "5532.21",
       "price": "4126.01"
     },
     {
@@ -51,6 +57,7 @@ const productArray = [
       "title": "Aegis Hero",
       "text": "Top Airflow Top Performance",
       "star": "13",
+      "rsp": "3532.21",
       "price": "2132.01"
     },
     {
@@ -60,6 +67,7 @@ const productArray = [
       "title": "Geekvape Legend200",
       "text": "Legend Leaps,Aegis Legend 2.",
       "star": "26",
+      "rsp": "3532.21",
       "price": "2321.31"
     },
     {
@@ -69,6 +77,7 @@ const productArray = [
       "title": "Geekvape Nano",
       "text": "Bravo in Nano.",
       "star": "64",
+      "rsp": "4532.21",
       "price": "3378.12"
     },
     {
@@ -78,6 +87,7 @@ const productArray = [
       "title": "Geekvape One",
       "text": "First Vape Pen with New Aegis Design.",
       "star": "23",
+      "rsp": "3532.21",
       "price": "2371.13"
     },
     {
@@ -87,6 +97,7 @@ const productArray = [
       "title": "Aegis X Geekvape Z Kit",
       "text": "The Best Mod Meets the Best Tank",
       "star": "49",
+      "rsp": "4532.21",
       "price": "5378.12"
     },
     {
@@ -96,6 +107,7 @@ const productArray = [
       "title": "Geekvape AP2",
       "text": "New Tri-proof. New Aegis Pod.",
       "star": "24",
+      "rsp": "4532.21",
       "price": "3378.12"
     },
     {
@@ -105,6 +117,7 @@ const productArray = [
       "title": "Geekvape B60",
       "text": "New Tri-proof. Empower Boost.",
       "star": "21",
+      "rsp": "5532.21",
       "price": "4378.12"
     },
     {
@@ -114,6 +127,7 @@ const productArray = [
       "title": "Geekvape B100 21700 Kit",
       "text": "Pro 4 Pro.",
       "star": "21",
+      "rsp": "5532.21",
       "price": "4378.12"
     },
     {
@@ -123,6 +137,7 @@ const productArray = [
       "title": "Geekvape B100 Kit",
       "text": "New Tri-Proof. New Boost Pro.",
       "star": "23",
+      "rsp": "4532.21",
       "price": "3378.12"
     },
     {
@@ -132,6 +147,7 @@ const productArray = [
       "title": "Geekvape E100 & E100i Kit",
       "text": "Once Try, Forever Eteno.",
       "star": "11",
+      "rsp": "3232.21",
       "price": "2378.12"
     },
     {
@@ -141,6 +157,7 @@ const productArray = [
       "title": "GEEKVAPE L200 Classic",
       "text": "New Legend 2. New Power Beast.",
       "star": "22",
+      "rsp": "6432.21",
       "price": "5378.12"
     },
     {
@@ -150,6 +167,7 @@ const productArray = [
       "title": "Geekvape M100",
       "text": "New tri-proof, now in mini.",
       "star": "22",
+      "rsp": "6432.21",
       "price": "5378.12"
     },
     {
@@ -159,6 +177,7 @@ const productArray = [
       "title": "Geekvape Max100 Kit",
       "text": "New Tri-proof, New Aegis Max.",
       "star": "22",
+      "rsp": "6432.21",
       "price": "5378.12"
     },
     {
@@ -168,6 +187,7 @@ const productArray = [
       "title": "Geekvape S100",
       "text": "New tri-proof has the Solo.",
       "star": "22",
+      "rsp": "4532.21",
       "price": "5378.12"
     },
     {
@@ -177,6 +197,7 @@ const productArray = [
       "title": "Geekvape T200",
       "text": "The Smartest Touch Vape Ever.",
       "star": "22",
+      "rsp": "6532.21",
       "price": "5378.12"
     },
     {
@@ -495,7 +516,7 @@ const productArray = [
       "id": 55,
       "category": "BoxMods",
       "url": "/assets/images/box-mods/L200.jpg",
-      "title": "Geekvape L200 New Edition",
+      "title": "Geekvape L200 New",
       "text": "3,475.29",
       "star": "163",
       "price": "5378.12"
@@ -585,7 +606,7 @@ const productArray = [
       "id": 65,
       "category": "ReplacementCoils",
       "url": "/assets/images/replacement-pods/geek_vape_wenax_h1_cartridge_1_5.jpg",
-      "title": "Geekvape WENAX H1 Cartridge",
+      "title": "Geekvape WENAX Cart",
       "star": "13",
       "text": "632.04",
       "price": "5378.12"
@@ -648,7 +669,7 @@ const productArray = [
       "id": 72,
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/GeekvapeAegisBoost2Kit.jpg",
-      "title": "Geekvape B60 (Aegis Boost 2)",
+      "title": "Geekvape B60 (Boost 2)",
       "star": "12",
       "text": "399.01",
       "price": "5378.12"
@@ -657,7 +678,7 @@ const productArray = [
       "id": 73,
       "category": "ReplacementPods",
       "url": "/assets/images/replacement-pods/geek_vape_wenax_h1_cartridge_1_5.jpg",
-      "title": "Geekvape WENAX H1 Cartridge",
+      "title": "Geekvape WENAX Cart",
       "star": "13",
       "text": "632.04",
       "price": "5378.12"
@@ -745,7 +766,7 @@ const productArray = [
     },
     {
       "id": 83,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/Black.jpg",
       "title": "Geekvape Obelisk U Pod",
       "star": "6",
@@ -754,7 +775,7 @@ const productArray = [
     },
     {
       "id": 84,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/BlackBlue.jpg",
       "title": "Geekvape Z100C DNA Pod",
       "star": "14",
@@ -763,8 +784,8 @@ const productArray = [
     },
     {
       "id": 85,
-      "category": "PodKits",
-      "url": "/assets/images/pod-kits/BlackRed.jpg",
+      "category": "Pod_Kits",
+      "url": "/assets/images/pod-kits/BlueRed.jpg",
       "title": "Geekvape B100 Kit",
       "star": "8",
       "text": "2793.63",
@@ -772,7 +793,7 @@ const productArray = [
     },
     {
       "id": 86,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/GeekvapeSonderUKit.jpg",
       "title": "Geekvape Sonder U Pod",
       "star": "44",
@@ -781,7 +802,7 @@ const productArray = [
     },
     {
       "id": 87,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/Gunmetal.jpg",
       "title": "Geekvape AU Pod kit",
       "star": "12",
@@ -790,7 +811,7 @@ const productArray = [
     },
     {
       "id": 88,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/H45_RTE.jpg",
       "title": "Geekvape H45 Pod",
       "star": "67",
@@ -799,7 +820,7 @@ const productArray = [
     },
     {
       "id": 89,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "price": "1234.56",
       "url": "/assets/images/pod-kits/wenax.jpg",
       "title": "Geekvape Wenax U Pod",
@@ -808,7 +829,7 @@ const productArray = [
     },
     {
       "id": 90,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/wenax-slim.jpg",
       "title": "Geekvape Wenax M1 Pod Kit",
       "star": "38",
@@ -816,16 +837,4 @@ const productArray = [
       "price": "1234.56"
     }
   ]
-
-  function getProductData(id) {
-    let productData = productArray.find(product => product.id === id)
-
-    if (productData == undefined) {
-      console.log("Product data does not exist for ID: " + id);
-      return undefined;
-    }
-
-    return productData;
-  }
-
-  export { productArray, getProductData };
+}

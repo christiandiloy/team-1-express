@@ -349,6 +349,34 @@ app.get("/keyword", function (req, res) {
     }
   );
 });
+app.get("/getSliderImages", function (req, res) {
+  fs.readFile(
+    __dirname + "/" + "slider.json",
+    "utf8",
+    function (err, data) {
+      console.log(data);
+      res.send(data); // you can also use res.send()
+    }
+  );
+});
+
+app.get("/keyword", function (req, res) {
+  fs.readFile(
+    __dirname + "/" + "slider.js",
+    "utf8",
+    function (err, data) {
+      data = JSON.parse(data);
+      console.log(data.tour);
+      const result = data.tour.filter(function (obj) {
+        return obj["id"]
+          .toLowerCase()
+          .includes(req.query.i.toLowerCase());
+      });
+      console.log(result);
+      res.send(result); // you can also use res.send()
+    }
+  );
+});
 
 app.get("/store/item-page/:pageName", async (req, res) => {
   try {

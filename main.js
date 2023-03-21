@@ -4,6 +4,7 @@ const bodyParser = require("body-parser"); // this allows us to ready request da
 const app = express(); // initialize express server into a variable
 const fs = require("fs"); // use file system of windows or other OS to access local files
 const nodemailer = require("nodemailer"); //send email to users
+const hbs = require('nodemailer-express-handlebars');
 const request = require("request");
 const requestAPI = request;
 const { Sequelize } = require("sequelize");
@@ -12,11 +13,12 @@ const itemModel = require("./models/itemModel");
 const subscriberModel = require("./models/subscriberModel");
 const path = require("path");
 const { EMAIL, PASSWORD } = require("./env.js");
+const { DATABASE_SCHEMA, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_DIALECT } = require('./env.js');
 
-const sequelize = new Sequelize("paredes", "wd32p", "7YWFvP8kFyHhG3eF", {
-  host: "20.211.37.87",
-  dialect: "mysql",
-});
+const sequelize = new Sequelize(DATABASE_SCHEMA, DATABASE_USERNAME, DATABASE_PASSWORD, {
+    host: DATABASE_HOST,
+    dialect: DATABASE_DIALECT,
+  });
 
 const User = sequelize.define(
   "user",
@@ -163,7 +165,9 @@ app.use(
   })
 );
 
+
 app.use(bodyParser.json()); // initialize body parser plugin on express
+app.use(express.static(path.join(__dirname, "views")));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 let defaultData = [];
@@ -576,16 +580,6 @@ app.get("/items", async (req, res) => {
 });
 
 app.post("/subscribe", async (req, res) => {
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: EMAIL,
-      pass: PASSWORD,
-    },
-  });
-});
-
-app.post("/subscribe", async (req, res) => {
   let retVal = { success: false };
   console.log("req: ", request.body);
   subscriberModel
@@ -632,11 +626,23 @@ app.post("/subscribe", async (req, res) => {
           },
         });
 
+        const handlebarsOptions= {
+          viewEngine: {
+            extName: ".handlebars",
+            partialsDir: path.resolve('./views'),
+            defaultLayout: false,
+          },
+          viewPath: path.resolve('./views'),
+          extName: ".handlebars",
+        }
+
+        transporter.use('compile', hbs(handlebarsOptions));
+
         const msg = {
           from: `"Gon's Dispo Vape Shop" <${EMAIL}>`,
           to: `${req.body.email}, ${req.body.email}`,
           subject: "Thanks for Subscribing!",
-          text: "Thanks for subscribing!",
+          template: 'template'
         };
 
         let info = transporter.sendMail(msg);

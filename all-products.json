@@ -8,6 +8,7 @@
       "page_name":"AegisBonusKit",
       "text": "More Flavors Await.",
       "star": "31",
+      "rsp": "4532.21",
       "price": "3406.32"
     },
     {
@@ -18,6 +19,7 @@
       "page_name":"AegisMax",
       "text": "Salute to Aegis 100W",
       "star": "55",
+      "rsp": "4532.21",
       "price": "3106.12"
     },
     {
@@ -28,6 +30,7 @@
       "page_name":"Aegis1FCPodKit",
       "text": "Worlds First Fast Charging Pen",
       "star": "41",
+      "rsp": "4532.21",
       "price": "3312.72"
     },
     {
@@ -38,6 +41,7 @@
       "page_name":"AegisBoostPro",
       "text": "Four in Full Will.",
       "star": "13",
+      "rsp": "4532.21",
       "price": "3032.25"
     },
     {
@@ -48,6 +52,7 @@
       "page_name":"GVH45",
       "text": "New Tri-proof. New HERO",
       "star": "82",
+      "rsp": "5532.21",
       "price": "4126.01"
     },
     {
@@ -58,6 +63,7 @@
       "page_name":"AegisHero",
       "text": "Top Airflow Top Performance",
       "star": "13",
+      "rsp": "3532.21",
       "price": "2132.01"
     },
     {
@@ -68,6 +74,7 @@
       "page_name":"GVLegend200",
       "text": "Legend Leaps,Aegis Legend 2.",
       "star": "26",
+      "rsp": "3532.21",
       "price": "2321.31"
     },
     {
@@ -78,6 +85,7 @@
       "page_name":"GVNano",
       "text": "Bravo in Nano.",
       "star": "64",
+      "rsp": "4532.21",
       "price": "3378.12"
     },
     {
@@ -88,6 +96,7 @@
       "page_name":"GVOne",
       "text": "First Vape Pen with New Aegis Design.",
       "star": "23",
+      "rsp": "3532.21",
       "price": "2371.13"
     },
     {
@@ -98,6 +107,7 @@
       "page_name":"AegisXGVZKit",
       "text": "The Best Mod Meets the Best Tank",
       "star": "49",
+      "rsp": "4532.21",
       "price": "5378.12"
     },
     {
@@ -108,6 +118,7 @@
       "page_name":"GVAP2",
       "text": "New Tri-proof. New Aegis Pod.",
       "star": "24",
+      "rsp": "4532.21",
       "price": "3378.12"
     },
     {
@@ -118,6 +129,7 @@
       "page_name":"GVB60",
       "text": "New Tri-proof. Empower Boost.",
       "star": "21",
+      "rsp": "5532.21",
       "price": "4378.12"
     },
     {
@@ -128,6 +140,7 @@
       "page_name":"GVB10021700Kit",
       "text": "Pro 4 Pro.",
       "star": "21",
+      "rsp": "5532.21",
       "price": "4378.12"
     },
     {
@@ -138,6 +151,7 @@
       "page_name":"GVB100Kit",
       "text": "New Tri-Proof. New Boost Pro.",
       "star": "23",
+      "rsp": "4532.21",
       "price": "3378.12"
     },
     {
@@ -148,6 +162,7 @@
       "page_name":"GVE100E100iKit",
       "text": "Once Try, Forever Eteno.",
       "star": "11",
+      "rsp": "3232.21",
       "price": "2378.12"
     },
     {
@@ -158,6 +173,7 @@
       "page_name":"GVL200Classic",
       "text": "New Legend 2. New Power Beast.",
       "star": "22",
+      "rsp": "6432.21",
       "price": "5378.12"
     },
     {
@@ -168,6 +184,7 @@
       "page_name":"GVM100Kit",
       "text": "New tri-proof, now in mini.",
       "star": "22",
+      "rsp": "6432.21",
       "price": "5378.12"
     },
     {
@@ -178,6 +195,7 @@
       "page_name":"#",
       "text": "New Tri-proof, New Aegis Max.",
       "star": "22",
+      "rsp": "6432.21",
       "price": "5378.12"
     },
     {
@@ -188,6 +206,7 @@
       "page_name":"GVS100",
       "text": "New tri-proof has the Solo.",
       "star": "22",
+      "rsp": "4532.21",
       "price": "5378.12"
     },
     {
@@ -198,6 +217,7 @@
       "page_name":"GVT200",
       "text": "The Smartest Touch Vape Ever.",
       "star": "22",
+      "rsp": "6532.21",
       "price": "5378.12"
     },
     {
@@ -753,7 +773,8 @@
       "title": "Geekvape L200",
       "page_name":"#",
       "star": "234",
-      "text": "4691.54"
+      "text": "4691.54",
+      "price": "1234.56"
     },
     {
       "id": 76,
@@ -762,7 +783,8 @@
       "title": "Geekvape Aegis X",
       "page_name":"#",
       "star": "129",
-      "text": "5338.84"
+      "text": "5338.84",
+      "price": "1234.56"
     },
     {
       "id": 77,
@@ -771,7 +793,8 @@
       "title": "Geekvape T200",
       "page_name":"#",
       "star": "66",
-      "text": "5687.38"
+      "text": "5687.38",
+      "price": "1234.56"
     },
     {
       "id": 78,
@@ -780,7 +803,8 @@
       "title": "Geekvape Max100",
       "page_name":"#",
       "star": "77",
-      "text": "4507.86"
+      "text": "4507.86",
+      "price": "1234.56"
     },
     {
       "id": 79,
@@ -789,7 +813,8 @@
       "title": "Geekvape S100",
       "page_name":"#",
       "star": "28",
-      "text": "4575.36"
+      "text": "4575.36",
+      "price": "1234.56"
     },
     {
       "id": 80,
@@ -798,7 +823,8 @@
       "title": "Geekvape E100",
       "page_name":"#",
       "star": "28",
-      "text": "2959.36"
+      "text": "2959.36",
+      "price": "1234.56"
     },
     {
       "id": 81,
@@ -807,7 +833,8 @@
       "title": "Geekvape L200 Classic",
       "page_name":"#",
       "star": "49",
-      "text": "4929.36"
+      "text": "4929.36",
+      "price": "1234.56"
     },
     {
       "id": 82,
@@ -816,65 +843,73 @@
       "title": "Geekvape M100 Kit",
       "page_name":"#",
       "star": "45",
-      "text": "4912.84"
+      "text": "4912.84",
+      "price": "1234.56"
     },
     {
       "id": 83,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/Black.jpg",
       "title": "Geekvape Obelisk U Pod",
       "page_name":"#",
       "star": "6",
-      "text": "1105.94"
+      "text": "1105.94",
+      "price": "1234.56"
     },
     {
       "id": 84,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/BlackBlue.jpg",
       "title": "Geekvape Z100C DNA Pod",
       "page_name":"#",
       "star": "14",
-      "text": "9248.63"
+      "text": "9248.63",
+      "price": "1234.56"
     },
     {
       "id": 85,
-      "category": "PodKits",
-      "url": "/assets/images/pod-kits/BlackRed.jpg",
+      "category": "Pod_Kits",
+      "url": "/assets/images/pod-kits/BlueRed.jpg",
       "title": "Geekvape B100 Kit",
       "page_name":"#",
       "star": "8",
-      "text": "2793.63"
+      "text": "2793.63",
+      "price": "1234.56"
     },
     {
       "id": 86,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/GeekvapeSonderUKit.jpg",
       "title": "Geekvape Sonder U Pod",
       "page_name":"#",
       "star": "44",
-      "text": "663.90"
+      "text": "663.90",
+      "price": "1234.56"
     },
     {
       "id": 87,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/Gunmetal.jpg",
       "title": "Geekvape AU Pod kit",
       "page_name":"#",
       "star": "12",
-      "text": "1466.90"
+      "text": "1466.90",
+      "price": "1234.56"
     },
     {
       "id": 88,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/H45_RTE.jpg",
       "title": "Geekvape H45 Pod",
       "page_name":"#",
       "star": "67",
-      "text": "2433.90"
+      "text": "2433.90",
+      "price": "1234.56"
     },
     {
       "id": 89,
-      "category": "PodKits",
+      "category": "Pod_Kits",
+      "price": "1234.56",
       "url": "/assets/images/pod-kits/wenax.jpg",
       "title": "Geekvape Wenax U Pod",
       "page_name":"#",
@@ -883,12 +918,13 @@
     },
     {
       "id": 90,
-      "category": "PodKits",
+      "category": "Pod_Kits",
       "url": "/assets/images/pod-kits/wenax-slim.jpg",
       "title": "Geekvape Wenax M1 Pod Kit",
       "page_name":"#",
       "star": "38",
-      "text": "939.90"
+      "text": "939.90",
+      "price": "1234.56"
     }
   ]
 }
